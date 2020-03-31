@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="1263.0" stylesheets="@../css/snackvar.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.opaleye.snackvar.TrimController">
+   <children>
+      <ScrollPane fx:id="tracePane" layoutX="13.0" layoutY="87.0" prefHeight="220.0" prefWidth="1200.0">
+      <VBox>
+      	<HBox fx:id="traceHBox">
+      	</HBox>
+      	<VBox fx:id="sliderVBox">
+      	</VBox>
+      </VBox>
+      </ScrollPane>
+      
+      
+      <Label layoutX="356.0" layoutY="4.0" text="Trim Ends (Shaded areas will be trimmed)">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="confirmBtn" layoutX="459.0" layoutY="330.0" mnemonicParsing="false" onAction="#handleConfirm" prefHeight="23.0" prefWidth="347.0" text="Confirm" />
+      <Label layoutX="14.0" layoutY="30.0" prefHeight="21.0" prefWidth="327.0" text="Left mouse button click : Trim left side ">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="51.0" prefHeight="21.0" prefWidth="514.0" text="Right mouse button click : Trim right side ">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Button fx:id="resetButton" layoutX="1194.0" layoutY="61.0" mnemonicParsing="false" onAction="#handleReset" text="Reset" />
+      <Button fx:id="zoomInButton" layoutX="1218.0" layoutY="87.0" mnemonicParsing="false" onAction="#handleZoomIn" prefHeight="99.0" prefWidth="28.0" text="+" />
+      <Button fx:id="zoomOutButton" layoutX="1218.0" layoutY="188.0" mnemonicParsing="false" onAction="#handleZoomOut" prefHeight="99.0" prefWidth="28.0" text="-" />
+   </children>
+</AnchorPane>

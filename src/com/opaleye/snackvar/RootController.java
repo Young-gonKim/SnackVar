@@ -83,6 +83,7 @@ public class RootController implements Initializable {
 	public static final double paneWidth = 1238; 
 	public static final int filterQualityCutoff = 25;
 
+	private String lastVisitedDir="D:\\GoogleDrive\\SnackVar\\#실험데이타";
 	/**
 	 * Settings parameters
 	 */
@@ -118,7 +119,7 @@ public class RootController implements Initializable {
 	private String refFileName = null, fwdFileName = null, revFileName = null;
 
 
-	private String lastVisitedDir="D:\\GoogleDrive\\ganseq\\#실험데이타";
+	
 	private Stage primaryStage;
 	public void setPrimaryStage(Stage primaryStage) {
 		this.primaryStage = primaryStage;

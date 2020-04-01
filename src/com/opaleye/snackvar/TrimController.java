@@ -26,10 +26,10 @@ import javafx.stage.Stage;
 public class TrimController implements Initializable {
 	@FXML private HBox traceHBox;
 	@FXML private VBox sliderVBox;
-	@FXML private ScrollPane tracePane;
 	@FXML private Button confirmBtn;
 	@FXML private Button zoomInButton;
 	@FXML private Button zoomOutButton;
+	@FXML private ScrollPane tracePane;
 
 
 	private GanseqTrace targetTrace;
@@ -127,7 +127,9 @@ public class TrimController implements Initializable {
 			startTrimPosition = tempStart;
 			endTrimPosition = tempEnd;
 			imageView.setImage(targetTrace.getTrimmingImage(startTrimPosition, endTrimPosition));
-			tracePane.setContent(imageView);
+			traceHBox.getChildren().clear();
+			traceHBox.getChildren().add(imageView);
+
 		}
 				);
 	}

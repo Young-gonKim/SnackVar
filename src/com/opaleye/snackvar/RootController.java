@@ -803,34 +803,6 @@ public class RootController implements Initializable {
 	}
 
 
-	/**
-	 * Shows the message with a popup
-	 * @param message : message to be showen
-	 */
-	public void textPopUp (String message) {
-		Stage dialog = new Stage(StageStyle.DECORATED);
-		dialog.initOwner(primaryStage);
-		dialog.setTitle("Notice");
-		Parent parent;
-		try {
-			parent = FXMLLoader.load(getClass().getResource("login.fxml"));
-			TextArea ta_message = (TextArea)parent.lookup("#ta_message");
-
-
-			ta_message.setText(message);
-			Button okButton = (Button) parent.lookup("#okButton");
-			okButton.setOnAction(event->dialog.close());
-			Scene scene = new Scene(parent);
-
-			dialog.setScene(scene);
-			dialog.setResizable(false);
-			dialog.showAndWait();
-		}
-		catch(Exception ex) {
-			ex.printStackTrace();
-		}
-
-	}
 
 	private boolean doAlignment() {
 		//When only fwd trace is given as input

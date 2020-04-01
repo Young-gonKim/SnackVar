@@ -54,6 +54,12 @@ public class Variant implements Comparable<Variant>{
 			else
 				return -1;
 		}
+		else if(this instanceof SNV) {
+			if(s instanceof Indel) {
+				return 1;
+			}
+		}
+		
 		
 		
 		if(this.onTarget == s.isOnTarget()) {

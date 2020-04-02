@@ -75,7 +75,7 @@ import javafx.stage.StageStyle;
  *2018.5
  */
 public class RootController implements Initializable {
-	public static final String version = "2.0";
+	public static final String version = "2.1";
 	public static final int fontSize = 13;
 	public static final int defaultGOP = 30;
 	public static final double defaultSecondPeakCutoff = 0.30;
@@ -1049,8 +1049,13 @@ public class RootController implements Initializable {
 		VariantCallerFilter vcf = new VariantCallerFilter(this, heteroIndelList);
 		TreeSet<Variant> variantList = vcf.getVariantList();
 
-		if(vcf.misAlignment(variantList))
-			popUp("Wrong indel calling due to mis-alignment is suspected.\nIf unexpected homo-indel variant is called instead of hetero-indel variant, \nTry using increased gap opening penalty, such as 200. (Click 'Advanced')");
+		if(vcf.misAlignment(variantList)) {
+			resetParameters();
+			gapOpenPenalty = 200;
+			handleRun();
+			popUp("Hetero indel optimization mode is activated.\nDeactivation is available in 'Advanced'");
+			return;
+		}
 
 		if(variantList.size()==0) popUp("No variant detected!");
 		else {

@@ -4,23 +4,16 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.opaleye.snackvar.GanseqTrace;
 import com.opaleye.snackvar.RootController;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class SettingsController implements Initializable  {
 	@FXML private TextField tf_secondPeakCutoff;
@@ -28,7 +21,7 @@ public class SettingsController implements Initializable  {
 	@FXML private TextField tf_trainStartFileNo;
 	@FXML private TextField tf_testStartFileNo;
 	@FXML private HBox refHBox;
-
+	@FXML private CheckBox heteroIndelCheckBox;
 
 	public static final String noFiltering = "No filtering";
 	public static final String ruleBasedFiltering = "Rule based";
@@ -72,6 +65,23 @@ public class SettingsController implements Initializable  {
 		 */
 		tf_secondPeakCutoff.setText(String.format("%.2f",  secondPeakCutoff));
 		tf_gapOpenPenalty.setText(String.format("%d",  gapOpenPenalty));
+		if(gapOpenPenalty >=200) 
+			heteroIndelCheckBox.setSelected(true);
+		else
+			heteroIndelCheckBox.setSelected(false);
+
+		heteroIndelCheckBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+		    @Override
+		    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+		    	if(newValue == true) {
+		    		tf_gapOpenPenalty.setText("200");
+		    	}
+		    	else {
+		    		tf_gapOpenPenalty.setText("30");
+		    	}
+		    }
+		});
+
 
 	}
 
@@ -117,10 +127,6 @@ public class SettingsController implements Initializable  {
 	}
 
 
-
-	public void handleCustomRef() {
-		rootController.handleOpenRef();
-	}
 
 
 

@@ -34,6 +34,9 @@ import javafx.stage.StageStyle;
 public class HeteroController implements Initializable {
 	@FXML private ScrollPane tracePane;
 	@FXML private ScrollPane resultPane;
+	@FXML private Button zoomInButton;
+	@FXML private Button zoomOutButton;
+
 
 	private Label[][] labels = null;
 
@@ -53,6 +56,7 @@ public class HeteroController implements Initializable {
 	private int indelEndGIndex;
 	
 	private RootController rootController;
+	private ImageView imageView;
 	
 
 	//indel 영역에 해당되어 highlight 되는 위치들.
@@ -88,7 +92,7 @@ public class HeteroController implements Initializable {
 
 		java.awt.image.BufferedImage awtImage = heteroTrace.getHeteroImage(rootController.formatter, highlightRefSeq, highlightSubSeq);
 		javafx.scene.image.Image fxImage = SwingFXUtils.toFXImage(awtImage, null);
-		ImageView imageView = new ImageView(fxImage);
+		imageView = new ImageView(fxImage);
 		imageView.setMouseTransparent(true);
 		tracePane.setContent(imageView);
 
@@ -325,6 +329,24 @@ public class HeteroController implements Initializable {
 	 */
 	public void setHeteroTrace(HeteroTrace heteroTrace) {
 		this.heteroTrace = heteroTrace;
+	}
+
+	public void handleZoomIn() {
+		heteroTrace.zoomIn();
+		java.awt.image.BufferedImage awtImage = heteroTrace.getHeteroImage(rootController.formatter, highlightRefSeq, highlightSubSeq);
+		javafx.scene.image.Image fxImage = SwingFXUtils.toFXImage(awtImage, null);
+		imageView.setImage(fxImage);
+		tracePane.setContent(imageView);
+		tracePane.setVvalue(1.0);
+	}
+
+	public void handleZoomOut() {
+		heteroTrace.zoomOut();
+		java.awt.image.BufferedImage awtImage = heteroTrace.getHeteroImage(rootController.formatter, highlightRefSeq, highlightSubSeq);
+		javafx.scene.image.Image fxImage = SwingFXUtils.toFXImage(awtImage, null);
+		imageView.setImage(fxImage);
+		tracePane.setContent(imageView);
+		tracePane.setVvalue(1.0);
 	}
 
 

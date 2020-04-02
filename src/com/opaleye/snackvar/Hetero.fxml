@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="1263.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.opaleye.snackvar.HeteroController" stylesheets="@snackvar.css">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="1263.0" stylesheets="@snackvar.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.opaleye.snackvar.HeteroController">
    <children>
       <ScrollPane fx:id="resultPane" layoutX="14.0" layoutY="20.0" prefHeight="70.0" prefWidth="1238.0" />
-      <ScrollPane fx:id="tracePane" layoutX="14.0" layoutY="100.0" prefHeight="200.0" prefWidth="1238.0" />
+      <ScrollPane fx:id="tracePane" layoutX="14.0" layoutY="100.0" prefHeight="200.0" prefWidth="1210.0" />
+      <Button fx:id="zoomOutButton" layoutX="1224.0" layoutY="200.0" mnemonicParsing="false" onAction="#handleZoomOut" prefHeight="99.0" prefWidth="28.0" text="-" />
+      <Button fx:id="zoomInButton" layoutX="1224.0" layoutY="100.0" mnemonicParsing="false" onAction="#handleZoomIn" prefHeight="99.0" prefWidth="28.0" text="+" />
    </children>
 </AnchorPane>

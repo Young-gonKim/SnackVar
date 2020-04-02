@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="700.0" stylesheets="@snackvar.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.opaleye.snackvar.settings.SettingsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="357.0" prefWidth="700.0" stylesheets="@snackvar.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.opaleye.snackvar.settings.SettingsController">
 
-	<VBox layoutX="30" layoutY="1" prefHeight="245.0" prefWidth="657.0">
+	<VBox layoutX="30" layoutY="1" prefHeight="294.0" prefWidth="657.0">
 	<Label styleClass="titleClass" text="Custom Reference File" />
 	<HBox fx:id="refHBox">
 	</HBox>
@@ -17,9 +18,10 @@
 	<HBox>
 		<Label text="Gap opening penalty: " />
 	    <TextField fx:id="tf_gapOpenPenalty" prefHeight="29.0" prefWidth="79.0" />
+		<Label prefHeight="16.0" prefWidth="398.0" styleClass="descriptionClass" text="(default : 30, hetero indel optimization : 200 or higher)" />
 	</HBox>
 	<HBox>
-		<Label prefWidth="750.0" styleClass="descriptionClass" text="(default : 30, hetero indel optimization : 200 or higher)" />
+         <CheckBox fx:id="heteroIndelCheckBox" mnemonicParsing="false" prefHeight="18.0" prefWidth="492.0" text="Hetero Indel Mode (sets gap opening penalty 200)" />
 	</HBox>
       <Label />
 	<HBox>
@@ -27,11 +29,11 @@
   		<TextField fx:id="tf_secondPeakCutoff" prefHeight="29.0" prefWidth="77.0" />
 	</HBox>
 	<HBox>
-		<Label styleClass="descriptionClass" text="(recommendation> germline : 0.3~0.4, somatic 0.1~0.2 )" />
+		<Label styleClass="descriptionClass" text="(recommendation&gt; germline : 0.3~0.4, somatic 0.1~0.2 )" />
 	</HBox>		
 	</VBox>
 
-         <HBox layoutX="236.0" layoutY="261.0">
+         <HBox layoutX="247.0" layoutY="300.0">
       	<Button fx:id="btn_confirm" mnemonicParsing="false" onAction="#handleConfirm" text="Confirm" />
       	<Button fx:id="btn_default" mnemonicParsing="false" onAction="#handleDefault" text="Restore Default" />
       </HBox>

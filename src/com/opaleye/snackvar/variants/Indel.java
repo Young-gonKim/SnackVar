@@ -144,7 +144,7 @@ public class Indel extends Variant{
 
 		EquivExpression equivExpression = makeHGVS(indelStartIndex, indelEndIndex);
 		equivExpressionList.add(equivExpression);	
-		HGVS = equivExpression.getHGVS();
+		//HGVS = equivExpression.getHGVS();
 
 		//Left Align된적용시 주석해제
 		//int leftAlignedStartIndex = 0;
@@ -154,7 +154,6 @@ public class Indel extends Variant{
 		//EquivList 만들기. 
 		try {
 			String originalSeq = getMutatedSeq(gIndex, gIndex2);
-			int maxLeftOffset = 0;
 			int offset = -1;
 			//left 탐색
 			for(;;offset--) {
@@ -163,7 +162,6 @@ public class Indel extends Variant{
 					break;
 				}
 				else if(mutatedSeq.equals(originalSeq)) {
-					maxLeftOffset = offset;
 					int tempStartIndex = getAlignedIndexFromGIndex(gIndex+offset);
 					int tempEndIndex = getAlignedIndexFromGIndex(gIndex2+offset);
 					equivExpression = makeHGVS(tempStartIndex, tempEndIndex);
@@ -218,7 +216,23 @@ public class Indel extends Variant{
 		//equivExpression = makeHGVS(leftAlignedStartIndex, leftAlignedEndIndex);
 		//HGVS = equivExpression.getHGVS();
 
+		
+
 		if(coding1 && coding2 && rootController.formatter.getFirstNumber() == 1) makeAAChange();
+
+		//right alignment
+		EquivExpression rtMostExpression = null;
+		int rtMostIndex = -1;
+		Iterator<EquivExpression> iter = equivExpressionList.iterator();
+		while(iter.hasNext()) {
+			EquivExpression tempEquiv = (EquivExpression)iter.next();
+			if(rtMostIndex < tempEquiv.getgIndex2()) {
+				rtMostIndex = tempEquiv.getgIndex2();
+				rtMostExpression = tempEquiv;
+			}
+		}
+		
+		HGVS = rtMostExpression.getHGVS();
 
 		makeTableViewProperties();
 	}

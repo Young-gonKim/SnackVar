@@ -259,6 +259,7 @@ public class RootController implements Initializable {
 
 
 	private void resetParameters() {
+		gapOpenPenalty = defaultGOP;
 		alignmentPerformed = false;
 		alignedPoints = null;
 		gridPane = null;

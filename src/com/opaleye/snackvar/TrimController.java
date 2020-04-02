@@ -71,6 +71,11 @@ public class TrimController implements Initializable {
 		startTrimPosition = targetTrace.getFrontTrimPosition();
 		endTrimPosition = targetTrace.getTailTrimPosition();
 		
+		if(startTrimPosition >= endTrimPosition) {
+			startTrimPosition = 0;
+			endTrimPosition = targetTrace.traceLength * GanseqTrace.traceWidth-1;
+		}
+		
 		Image image = targetTrace.getTrimmingImage(startTrimPosition, endTrimPosition);
 		imageView.setImage(image);
 		traceHBox.getChildren().clear();

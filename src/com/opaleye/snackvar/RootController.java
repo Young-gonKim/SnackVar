@@ -258,7 +258,7 @@ public class RootController implements Initializable {
 
 
 	private void resetParameters() {
-		gapOpenPenalty = defaultGOP;
+
 		alignmentPerformed = false;
 		alignedPoints = null;
 		gridPane = null;
@@ -998,6 +998,8 @@ public class RootController implements Initializable {
 	 * Performs alignment, Detects variants, Shows results
 	 */
 	public void handleRun() {
+		resetParameters();
+		
 		try {
 			firstNumber = Integer.parseInt(tf_firstNumber.getText());
 			if(firstNumber<1) throw new Exception();
@@ -1017,7 +1019,6 @@ public class RootController implements Initializable {
 			popUp("At least one of forward trace file and reverse trace file \n should be loaded before running.");
 			return;
 		}
-
 
 		if(!doAlignment()) return;
 
@@ -1050,7 +1051,6 @@ public class RootController implements Initializable {
 		TreeSet<Variant> variantList = vcf.getVariantList();
 
 		if(vcf.misAlignment(variantList)) {
-			resetParameters();
 			gapOpenPenalty = 200;
 			handleRun();
 			popUp("Hetero indel optimization mode is activated.\nDeactivation is available in 'Advanced'");
@@ -1103,8 +1103,8 @@ public class RootController implements Initializable {
 			scene.setOnKeyPressed(event-> {
 				if(event.getCode()==KeyCode.DELETE) handleRemoveVariant();
 			});
-
 		}
+		gapOpenPenalty = defaultGOP;
 	}
 
 	/**

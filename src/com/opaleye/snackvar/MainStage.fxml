@@ -57,9 +57,9 @@
       <Label layoutX="14.0" layoutY="70.0" prefHeight="19.0" prefWidth="124.0" text="Reference File : " />
       <Label fx:id="refFileLabel" layoutX="132.0" layoutY="70.0" prefHeight="6.0" prefWidth="788.0" />
       <Label layoutX="14.0" layoutY="202.0" text="Forward Trace File : " />
-      <Label fx:id="fwdTraceFileLabel" layoutX="133.0" layoutY="202.0" prefHeight="15.0" prefWidth="1048.0" />
+      <Label fx:id="fwdTraceFileLabel" layoutX="159.0" layoutY="202.0" prefHeight="16.0" prefWidth="664.0" />
       <Label layoutX="16.0" layoutY="405.0" text="Reverse Trace File : " />
-      <Label fx:id="revTraceFileLabel" layoutX="133.0" layoutY="405.0" prefHeight="15.0" prefWidth="1048.0" />
+      <Label fx:id="revTraceFileLabel" layoutX="159.0" layoutY="405.0" prefHeight="16.0" prefWidth="664.0" />
       <ScrollPane fx:id="alignmentPane" layoutX="14.0" layoutY="94.0" prefHeight="105.0" prefWidth="1238.0" />
       <Button fx:id="removeFwd" layoutX="1098.0" layoutY="198.0" mnemonicParsing="false" onAction="#handleRemoveFwd" prefHeight="26.0" prefWidth="150.0" text="Remove Fwd Trace" />
       <Button fx:id="removeRev" layoutX="1098.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleRemoveRev" prefHeight="26.0" prefWidth="150.0" text="Remove Rev Trace" />

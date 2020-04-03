@@ -231,7 +231,6 @@ public class RootController implements Initializable {
 	public void setProperties(double secondPeakCutoff, int gapOpenPenalty) {
 		this.secondPeakCutoff = secondPeakCutoff;
 		this.gapOpenPenalty = gapOpenPenalty;
-
 	}
 
 	public void handleSettings() {
@@ -1658,7 +1657,8 @@ public class RootController implements Initializable {
 			ImageView imageView = new ImageView(fxImage);
 			imageView.setMouseTransparent(true);
 			fwdPane.setContent(imageView);
-			fwdPane.setHvalue(1.0);
+			fwdPane.layout();
+			fwdPane.setVvalue(1.0);
 		}
 	}
 	public void handleFwdZoomOut() {
@@ -1669,6 +1669,7 @@ public class RootController implements Initializable {
 			ImageView imageView = new ImageView(fxImage);
 			imageView.setMouseTransparent(true);
 			fwdPane.setContent(imageView);
+			fwdPane.layout();
 			fwdPane.setVvalue(1.0);
 		}
 	}
@@ -1680,6 +1681,7 @@ public class RootController implements Initializable {
 			ImageView imageView = new ImageView(fxImage);
 			imageView.setMouseTransparent(true);
 			revPane.setContent(imageView);
+			revPane.layout();
 			revPane.setVvalue(1.0);
 		}
 	}
@@ -1691,6 +1693,7 @@ public class RootController implements Initializable {
 			ImageView imageView = new ImageView(fxImage);
 			imageView.setMouseTransparent(true);
 			revPane.setContent(imageView);
+			revPane.layout();
 			revPane.setVvalue(1.0);
 		}
 	}

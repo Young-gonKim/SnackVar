@@ -108,7 +108,6 @@ public class GanseqTrace implements Cloneable{
 			transformedG[i] = new Double((maxHeight-traceG[i]) * imageHeightRatio).intValue();
 			transformedC[i] = new Double((maxHeight-traceC[i]) * imageHeightRatio).intValue();
 		}
-
 	}
 
 	public BufferedImage getDefaultImage() {
@@ -516,51 +515,6 @@ public class GanseqTrace implements Cloneable{
 		if(maxValue != 0 && (secondMaxValue / (double)maxValue >= cutOff)) {
 			secondPeakExist = true;
 
-			/*
-			int[] array1 = null;
-			switch(maxIndex) {
-			case 0:
-				array1 = traceA;
-				break;
-			case 1:
-				array1 = traceT;
-				break;
-			case 2:
-				array1 = traceG;
-				break;
-
-			case 3:
-				array1 = traceC;
-				break;
-			}
-
-			int[] array2 = null;
-			switch(secondMaxIndex) {
-			case 0:
-				array2 = traceA;
-				break;
-			case 1:
-				array2 = traceT;
-				break;
-			case 2:
-				array2 = traceG;
-				break;
-
-			case 3:
-				array2 = traceC;
-				break;
-			}
-
-			//double peak이면서  둘다 정규분포 만족하면 Qscore 더 줌.
-			int windowSize = 8; 
-
-			int[] signal1 = Arrays.copyOfRange(array1, Integer.max(0, position-windowSize), Integer.min(array1.length-1, position+6));
-			int[] signal2 = Arrays.copyOfRange(array2, Integer.max(0, position-windowSize), Integer.min(array2.length-1, position+6));
-
-			double normal1 = KSTest.test(signal1);
-			double normal2 = KSTest.test(signal2);
-			 */
-
 
 			//False secondPeak 판단로직 (조건에 맞으면 filtering --> secondPeakExist = false)
 			//원칙 : 확실한 것만 filter out. 애매한건 filtering 안함.
@@ -649,16 +603,6 @@ public class GanseqTrace implements Cloneable{
 				else if(direction == 2 && rightPeakFound && leftPeakFound)
 					secondPeakExist = false;
 
-				/*
-				if(!secondPeakExist || normal1<0.05 || normal2<0.05) {
-					System.out.println("pos : " + (basePosition+1) + ", Q : " + qCalls[basePosition]);
-					//for(int signal1Value:signal1) System.out.print(signal1Value + ", ");
-					System.out.println("Normality : " + KSTest.test(signal1));
-					//for(int signal2Value:signal2) System.out.print(signal2Value + ", ");
-					System.out.println("Normality : " + KSTest.test(signal2));
-					System.out.println();
-				}
-				 */
 
 
 			}
@@ -668,97 +612,6 @@ public class GanseqTrace implements Cloneable{
 		}
 		return new TwoPeaks(SymbolTools.numberToBase(maxIndex), SymbolTools.numberToBase(secondMaxIndex), maxValue, secondMaxValue, secondPeakExist);
 	}
-
-	/*
-	public TwoPeaks getTwoPeaks_LSTM(int basePosition, double cutOff) {
-		int baseHeights[] = new int [4];
-		int position = baseCalls[basePosition];
-		char originalBase = sequence.charAt(basePosition);
-		boolean secondPeakExist = false;
-
-		boolean[] truePeak = new boolean[4];
-		//앞뒤로 10칸 안나오면 그냥 filtering 안함 --> 다 true로.
-		//0,1,2,3 : ATGC
-		if(!LSTMOutput.LSTMLoaded || position < LSTMLength || position >= traceLength-LSTMLength) {
-			truePeak [0] = true;
-			truePeak [1] = true;
-			truePeak [2] = true;
-			truePeak [3] = true;
-		}
-		else {
-			float[] ATraceArray = new float[LSTMLength*2+1];
-			float[] TTraceArray = new float[LSTMLength*2+1];
-			float[] GTraceArray = new float[LSTMLength*2+1];
-			float[] CTraceArray = new float[LSTMLength*2+1];
-
-			int counter = 0;
-			for(int i=position-LSTMLength;i<=position+LSTMLength;i++) {
-				ATraceArray[counter] = traceA[i];
-				TTraceArray[counter] = traceT[i];
-				GTraceArray[counter] = traceG[i];
-				CTraceArray[counter] = traceC[i];
-				counter++;
-			}
-
-			truePeak[0] = LSTMOutput.predict(ATraceArray);
-			truePeak[1] = LSTMOutput.predict(TTraceArray);
-			truePeak[2] = LSTMOutput.predict(GTraceArray);
-			truePeak[3] = LSTMOutput.predict(CTraceArray);
-		}
-
-		//all false -> all true (so now at least one true peak exists) 
-		if(truePeak[0] == false && truePeak[1] == false && truePeak[2] == false && truePeak[3] == false) {
-			truePeak [0] = true;
-			truePeak [1] = true;
-			truePeak [2] = true;
-			truePeak [3] = true;
-		}
-
-		Vector symbolList = SymbolTools.IUPACtoSymbolList(originalBase);
-		//KB에서 결과가 1개짜리 or 2개짜리일때 : call 된 애들은 무조건 살려주기.
-		if(symbolList.size() ==1 || symbolList.size() ==2) {
-			for(int i=0;i<4;i++) {
-				if(symbolList.contains(Character.toString(SymbolTools.numberToBase(i)))) 
-					truePeak[i] = true;
-			}
-		}
-
-		baseHeights[0] = traceA[position];
-		baseHeights[1] = traceT[position];
-		baseHeights[2] = traceG[position];
-		baseHeights[3] = traceC[position];
-
-		//System.out.println(String.format("A:%b, T:%b, G:%b, C:%b", truePeak[0], truePeak[1],truePeak[2],truePeak[3]));
-
-		int maxValue = -1, secondMaxValue = -1;
-		int maxIndex = 0, secondMaxIndex = 0;
-
-		for(int j=0;j<4;j++) {
-			if(truePeak[j] && baseHeights[j] > maxValue) {
-				maxValue = baseHeights[j];
-				maxIndex = j;
-			}
-		}
-
-		for(int j=0;j<4;j++) {
-			if(j == maxIndex) continue;
-			if(truePeak[j] && baseHeights[j] > secondMaxValue) {
-				secondMaxValue = baseHeights[j];
-				secondMaxIndex = j;
-			}
-		}
-
-
-		if(maxValue != 0 && (secondMaxValue / (double)maxValue >= cutOff)) {
-			secondPeakExist = true;
-
-
-		}
-		return new TwoPeaks(SymbolTools.numberToBase(maxIndex), SymbolTools.numberToBase(secondMaxIndex), maxValue, secondMaxValue, secondPeakExist);
-	}
-
-	 */
-
 
 
 	/**
@@ -997,11 +850,14 @@ public class GanseqTrace implements Cloneable{
 		transformTrace();
 	}
 	
+	public void zoomDefault() {
+		ratio = 1.0;
+		transformTrace();
+	}
+	
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
 
 		return super.clone();
 	}
-
-
 }

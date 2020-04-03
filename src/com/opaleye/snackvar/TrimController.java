@@ -53,15 +53,16 @@ public class TrimController implements Initializable {
 		catch(Exception ex) {
 			rootController.popUp("An error has occured during trimming the trace, " + ex.getMessage());
 			ex.printStackTrace();
-			rootController.popUp("An error occured in trimming\n"+ex.getMessage());
 			return;
 		}
 
+		targetTrace.zoomDefault();
 		if(targetTrace.getDirection() == GanseqTrace.FORWARD ) 
 			rootController.confirmFwdTrace(targetTrace);
 		else 
 			rootController.confirmRevTrace(targetTrace);
 		primaryStage.close();
+	
 	}
 
 	/**
@@ -168,6 +169,7 @@ public class TrimController implements Initializable {
 		imageView.setImage(targetTrace.getTrimmingImage(startTrimPosition, endTrimPosition));
 		traceHBox.getChildren().clear();
 		traceHBox.getChildren().add(imageView);
+		tracePane.layout();
 		tracePane.setVvalue(1.0);
 	}
 
@@ -176,6 +178,7 @@ public class TrimController implements Initializable {
 		imageView.setImage(targetTrace.getTrimmingImage(startTrimPosition, endTrimPosition));
 		traceHBox.getChildren().clear();
 		traceHBox.getChildren().add(imageView);
+		tracePane.layout();
 		tracePane.setVvalue(1.0);
 	}
 

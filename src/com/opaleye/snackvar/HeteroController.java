@@ -337,6 +337,7 @@ public class HeteroController implements Initializable {
 		javafx.scene.image.Image fxImage = SwingFXUtils.toFXImage(awtImage, null);
 		imageView.setImage(fxImage);
 		tracePane.setContent(imageView);
+		tracePane.layout();
 		tracePane.setVvalue(1.0);
 	}
 
@@ -346,6 +347,7 @@ public class HeteroController implements Initializable {
 		javafx.scene.image.Image fxImage = SwingFXUtils.toFXImage(awtImage, null);
 		imageView.setImage(fxImage);
 		tracePane.setContent(imageView);
+		tracePane.layout();
 		tracePane.setVvalue(1.0);
 	}
 

@@ -318,11 +318,14 @@ public class Indel extends Variant{
 
 		Vector<Integer> cDnaStart = rootController.reference.getcDnaStart();
 		Vector<Integer> cDnaEnd = rootController.reference.getcDnaEnd();
+		int intCDnaStart = 0;
+		int intCDnaEnd = 0;
 		for(int i=0;i<cDnaStart.size();i++) {
-			int intCDnaStart = (cDnaStart.get(i)).intValue();
-			int intCDnaEnd = (cDnaEnd.get(i)).intValue();
+			intCDnaStart = (cDnaStart.get(i)).intValue();
+			intCDnaEnd = (cDnaEnd.get(i)).intValue();
 			originalSeq += refString.substring(intCDnaStart-1, intCDnaEnd);
 		}
+		originalSeq += refString.substring(intCDnaEnd); 
 
 		try {
 			i_cIndex1 = Integer.parseInt(cIndex.replaceAll("[^0-9]",""));

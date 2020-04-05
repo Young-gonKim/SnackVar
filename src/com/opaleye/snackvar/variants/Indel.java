@@ -216,7 +216,7 @@ public class Indel extends Variant{
 		//equivExpression = makeHGVS(leftAlignedStartIndex, leftAlignedEndIndex);
 		//HGVS = equivExpression.getHGVS();
 
-		
+
 
 		if(coding1 && coding2 && rootController.formatter.getFirstNumber() == 1) makeAAChange();
 
@@ -231,7 +231,7 @@ public class Indel extends Variant{
 				rtMostExpression = tempEquiv;
 			}
 		}
-		
+
 		HGVS = rtMostExpression.getHGVS();
 
 		makeTableViewProperties();
@@ -262,7 +262,7 @@ public class Indel extends Variant{
 				sb.append(refChar);
 			}
 			String tempIndelSeq = sb.toString();
-			
+
 			if(localCIndex1.equals(localCIndex2)) 
 				//tempHGVS =  localCIndex1 + "del" + tempIndelSeq;
 				tempHGVS =  localCIndex1 + "del";
@@ -371,15 +371,19 @@ public class Indel extends Variant{
 				}
 
 				boolean terminalFound = false;
-				for(;i<shiftedSeq.length();i+=3) {
-					if(i+3>originalSeq.length()) break;
-					fsCount++;
-					String shiftedAA = Variant.getAAfromTriple(shiftedSeq.substring(i,i+3));
-					System.out.println(String.format("%d : %s, %s",  fsCount, shiftedSeq.substring(i,i+3), shiftedAA));
-					if(shiftedAA.equals("*")) {
-						terminalFound = true;
-						break;
+				try {
+					for(;i<shiftedSeq.length();i+=3) {
+						if(i+3>originalSeq.length()) break;
+						fsCount++;
+						String shiftedAA = Variant.getAAfromTriple(shiftedSeq.substring(i,i+3));
+						System.out.println(String.format("%d : %s, %s",  fsCount, shiftedSeq.substring(i,i+3), shiftedAA));
+						if(shiftedAA.equals("*")) {
+							terminalFound = true;
+							break;
+						}
 					}
+				}
+				catch(StringIndexOutOfBoundsException sie) {
 				}
 				if(terminalFound)
 					AAChange =ptnCoordi + "*" + fsCount + ")";
@@ -514,7 +518,7 @@ public class Indel extends Variant{
 	public String getCIndex2() {
 		return cIndex2;
 	}
-	
+
 	public String getIndelSeq() {
 		return indelSeq;
 	}

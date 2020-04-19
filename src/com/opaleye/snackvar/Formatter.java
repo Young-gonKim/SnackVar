@@ -515,7 +515,7 @@ public class Formatter {
 					}
 					else if (cdsIndex == cDnaStart.size()-1 && i > intCDnaEnd) { //3' of last CDS
 						int offSet = i-intCDnaEnd;
-						tempCIndex += cDNA + "+" + offSet;
+						tempCIndex += "*" + offSet;
 					}
 
 					else {	//intron 

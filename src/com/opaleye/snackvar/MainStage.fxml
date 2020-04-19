@@ -61,8 +61,8 @@
       <Label layoutX="16.0" layoutY="405.0" text="Reverse Trace File : " />
       <Label fx:id="revTraceFileLabel" layoutX="159.0" layoutY="405.0" prefHeight="16.0" prefWidth="664.0" />
       <ScrollPane fx:id="alignmentPane" layoutX="14.0" layoutY="94.0" prefHeight="105.0" prefWidth="1238.0" />
-      <Button fx:id="removeFwd" layoutX="1098.0" layoutY="198.0" mnemonicParsing="false" onAction="#handleRemoveFwd" prefHeight="26.0" prefWidth="150.0" text="Remove Fwd Trace" />
-      <Button fx:id="removeRev" layoutX="1098.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleRemoveRev" prefHeight="26.0" prefWidth="150.0" text="Remove Rev Trace" />
+      <Button fx:id="fwdRemoveBtn" layoutX="1098.0" layoutY="198.0" mnemonicParsing="false" onAction="#handleRemoveFwd" prefHeight="26.0" prefWidth="150.0" text="Remove Fwd Trace" />
+      <Button fx:id="revRemoveBtn" layoutX="1098.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleRemoveRev" prefHeight="26.0" prefWidth="150.0" text="Remove Rev Trace" />
       <Button fx:id="fwdHeteroBtn" layoutX="829.0" layoutY="198.0" mnemonicParsing="false" onAction="#handleFwdHetero" text="Hetero Indel View" />
       <Button fx:id="revHeteroBtn" layoutX="829.0" layoutY="401.0" mnemonicParsing="false" onAction="#handleRevHetero" text="Hetero Indel View" />
       <Label layoutX="16.0" layoutY="611.0" prefHeight="15.0" prefWidth="1000.0" text="Variant List (Double click : text selection, Del : Remove)" />
@@ -85,8 +85,8 @@
       <Button fx:id="fwdZoomOutButton" layoutX="1219.0" layoutY="309.0" mnemonicParsing="false" onAction="#handleFwdZoomOut" prefHeight="83.0" prefWidth="28.0" text="-" />
       <Button fx:id="revZoomInButton" layoutX="1219.0" layoutY="432.0" mnemonicParsing="false" onAction="#handleRevZoomIn" prefHeight="83.0" prefWidth="28.0" text="+" />
       <Button fx:id="revZoomOutButton" layoutX="1219.0" layoutY="517.0" mnemonicParsing="false" onAction="#handleRevZoomOut" prefHeight="83.0" prefWidth="28.0" text="-" />
-      <Button layoutX="973.0" layoutY="197.0" mnemonicParsing="false" onAction="#handleFwdEditTrimming" prefHeight="26.0" prefWidth="118.0" text="Edit Trimming" />
-      <Button layoutX="973.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleRevEditTrimming" prefHeight="26.0" prefWidth="118.0" text="Edit Trimming" />
+      <Button fx:id="fwdEditTrimBtn" layoutX="973.0" layoutY="197.0" mnemonicParsing="false" onAction="#handleFwdEditTrimming" prefHeight="26.0" prefWidth="118.0" text="Edit Trimming" />
+      <Button fx:id="revEditTrimBtn" layoutX="973.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleRevEditTrimming" prefHeight="26.0" prefWidth="118.0" text="Edit Trimming" />
       
    </children>
    </AnchorPane>

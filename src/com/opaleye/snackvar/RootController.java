@@ -75,7 +75,7 @@ import javafx.stage.StageStyle;
  *2018.5
  */
 public class RootController implements Initializable {
-	public static final String version = "2.1";
+	public static final String version = "2.1.1";
 	public static final int fontSize = 13;
 	public static final int defaultGOP = 30;
 	public static final double defaultSecondPeakCutoff = 0.30;
@@ -93,8 +93,9 @@ public class RootController implements Initializable {
 
 	@FXML private ScrollPane  fwdPane, revPane, alignmentPane, newAlignmentPane;
 	@FXML private Label refFileLabel, fwdTraceFileLabel, revTraceFileLabel;
-	@FXML private Button removeRef, removeFwd, removeRev, removeVariant;
+	@FXML private Button fwdRemoveBtn, revRemoveBtn, removeVariant;
 	@FXML private Button fwdHeteroBtn, revHeteroBtn;
+	@FXML private Button fwdEditTrimBtn, revEditTrimBtn;
 	@FXML private Button fwdZoomInButton, fwdZoomOutButton, revZoomInButton, revZoomOutButton;
 	@FXML private TextField tf_firstNumber;
 	@FXML private Label offsetLabel;
@@ -190,6 +191,10 @@ public class RootController implements Initializable {
 			lastVisitedDir=".";
 		fwdHeteroBtn.setVisible(false);
 		revHeteroBtn.setVisible(false);
+		fwdRemoveBtn.setVisible(false);
+		revRemoveBtn.setVisible(false);
+		fwdEditTrimBtn.setVisible(false);
+		revEditTrimBtn.setVisible(false);
 
 		Tooltip zoomInTooltip = new Tooltip("Zoom In");
 		Tooltip zoomOutTooltip = new Tooltip("Zoom Out");
@@ -506,6 +511,9 @@ public class RootController implements Initializable {
 			fwdPane.setContent(imageView);
 			fwdTraceFileLabel.setText(fwdFileName);
 			fwdLoaded = true;
+			fwdRemoveBtn.setVisible(true);
+			fwdEditTrimBtn.setVisible(true);
+			
 		}
 		catch(Exception ex) {
 			popUp("Error in loading forward trace file\n" + ex.getMessage());
@@ -527,6 +535,9 @@ public class RootController implements Initializable {
 		revFileName = new String(fwdFileName);
 		revTraceFileLabel.setText(revFileName);
 		revLoaded = true;
+		revRemoveBtn.setVisible(true);
+		revEditTrimBtn.setVisible(true);
+
 		BufferedImage awtImage = trimmedRevTrace.getDefaultImage();
 		Image fxImage = SwingFXUtils.toFXImage(awtImage, null);
 		ImageView imageView = new ImageView(fxImage);
@@ -545,6 +556,9 @@ public class RootController implements Initializable {
 		fwdFileName = new String(revFileName);
 		fwdTraceFileLabel.setText(fwdFileName);
 		fwdLoaded = true;
+		fwdRemoveBtn.setVisible(true);
+		fwdEditTrimBtn.setVisible(true);
+		
 		BufferedImage awtImage = trimmedFwdTrace.getDefaultImage();
 		Image fxImage = SwingFXUtils.toFXImage(awtImage, null);
 		ImageView imageView = new ImageView(fxImage);
@@ -598,6 +612,11 @@ public class RootController implements Initializable {
 		fwdTraceFile = null;
 		trimmedFwdTrace = null;
 		fwdLoaded = false;
+		fwdHeteroBtn.setVisible(false);
+		fwdRemoveBtn.setVisible(false);
+		fwdEditTrimBtn.setVisible(false);
+
+		
 	}
 
 	/** 
@@ -674,6 +693,9 @@ public class RootController implements Initializable {
 			//최초에 읽어올때만 fileName setting, editTrimming후 confirm할때는 setting할필요 없음 (하면 꼬임)
 			revTraceFileLabel.setText(revFileName);
 			revLoaded = true;
+			revRemoveBtn.setVisible(true);
+			revEditTrimBtn.setVisible(true);
+
 
 		}
 		catch(Exception ex) {
@@ -694,6 +716,9 @@ public class RootController implements Initializable {
 		revTraceFile = null;
 		trimmedRevTrace = null;
 		revLoaded = false;
+		revHeteroBtn.setVisible(false);
+		revRemoveBtn.setVisible(false);
+		revEditTrimBtn.setVisible(false);
 	}
 
 	/**

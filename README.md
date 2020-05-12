@@ -6,7 +6,7 @@ Detected variants are provided in the form of HGVS (Human Genome Variation Socie
 
 # 1. How to Run
 1. You need to have [Java](https://www.java.com) installed.(Version 8 or higher)
-2. Download SnackVar_V2.1.1.zip and unzip.
+2. Download SnackVar_V2.1.1.zip and unzip. (Download : Release tab above)
 3. Run <br>
 Windows : Run.bat or SnackVAR.jar (If not run by double click, right click-> open with -> JAVA)<br>
 Linux, Mac : java -jar SnackVAR.jar
@@ -22,7 +22,7 @@ Using SnackVar is quite straightforward.<br>
 5. Results are shown as below<br>
 <img src="fig/fig_result1.png">
 
-**Heterozygous Indel Variant**
+**Heterozygous Indel Variant (by clicking "Hetero Indel View")**
 <img src="fig/fig_hetero_indel_view.png">
 
 

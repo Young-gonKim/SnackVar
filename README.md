@@ -7,9 +7,9 @@ Detected variants are provided in the form of HGVS (Human Genome Variation Socie
 # 1. How to Run
 1. You need to have [Java](https://www.java.com) installed.(Version 8 or higher)
 2. Download SnackVar_V2.1.1.zip and unzip.
-3. Run 
-Windows : Run.bat or SnackVAR.jar (If not run by double click, right click-> open with -> JAVA)
-Linux : java -jar SnackVAR.jar
+3. Run <br>
+Windows : Run.bat or SnackVAR.jar (If not run by double click, right click-> open with -> JAVA)<br>
+Linux, Mac : java -jar SnackVAR.jar
 
 # 2. How to Use
 Using SnackVar is quite straightforward.<br>

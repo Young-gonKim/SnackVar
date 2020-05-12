@@ -6,30 +6,26 @@ Detected variants are provided in the form of HGVS (Human Genome Variation Socie
 
 # 1. How to Run
 1. You need to have [Java](https://www.java.com) installed.(Version 8 or higher)
-2. Download SnackVar_V2.1.1.zip
-3. Execute Ganseq_Run.jar 
-(If not run by double click, right click-> open with -> JAVA)
+2. Download SnackVar_V2.1.1.zip and unzip.
+3. Run 
+Windows : Run.bat or SnackVAR.jar (If not run by double click, right click-> open with -> JAVA)
+Linux : java -jar SnackVAR.jar
 
 # 2. How to Use
-Using ganseq is quite straightforward.<br>
-**(Refer to Ganseq_HowToUse.avi)**
-<img src="screenshots/screenshot.jpg">
-1. Open reference file (Genbank file)<br>
+Using SnackVar is quite straightforward.<br>
+<img src="fig/fig_ref_selection.png">
+1. Choose reference sequence(RefSeq or gene name)<br>
 2. Open forward and/or reverse trace file<br>
 3. Trim the low-quality ends of trace file<br>
-<img src="screenshots/trimming1.jpg">
-<img src="screenshots/trimming2.jpg">
+<img src="fig/fig_trimming.png">
 4. Click 'Run' Button<br>
-5. Verify suggested variants<br>
+5. Results are shown as below<br>
+<img src="fig/fig_result1.png">
 
 **Heterozygous Indel Variant**
-<img src="screenshots/screenshot_indel.jpg">
+<img src="fig/fig_hetero_indel_view.png">
 
-**How to download reference file**
-<img src="screenshots/genbank1.jpg">
-<img src="screenshots/genbank2.jpg">
 
 # 3. Utilized Libraries
-1. BioJAVA Legacy  (https://github.com/biojava/biojava-legacy)
-2. jAligner (https://github.com/ahmedmoustafa/JAligner)
+BioJAVA Legacy  (https://github.com/biojava/biojava-legacy)
 

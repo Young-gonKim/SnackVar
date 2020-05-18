@@ -27,7 +27,7 @@ Figure above shows an example of desirable trimming. <br>
 5. Results are shown as below<br>
 <img src="fig/fig_result1.png">
 
-**Heterozygous Indel Variant (by clicking "Hetero Indel View")**
+**Heterozygous Indel View Mode (by clicking "Hetero Indel View")**
 <img src="fig/fig_hetero_indel_view.png">
 
 # 3. Parameter optimization

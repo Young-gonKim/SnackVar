@@ -12,7 +12,7 @@ Windows : Run.bat or SnackVAR.jar (If not run by double click, right click-> ope
 Linux, Mac : java -jar SnackVAR.jar
 
 # 2. How to Use
-**You can download and watch SnackVar_Demo.mp4**
+![**You can download and watch SnackVar_Demo.mp4**](SnackVar_Demo.mp4)
 
 Using SnackVar is quite straightforward.<br>
 <img src="fig/fig_ref_selection.png">

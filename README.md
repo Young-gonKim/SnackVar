@@ -13,6 +13,10 @@ Linux, Mac : java -jar SnackVAR.jar
 
 # 2. How to Use
 Using SnackVar is quite straightforward.<br>
+
+[Movie clip](SnackVar_Demo.mp4)
+
+
 <img src="fig/fig_ref_selection.png">
 1. Choose reference sequence(RefSeq or gene name)<br>
 2. Open forward and/or reverse trace file<br>

@@ -14,7 +14,7 @@ Linux, Mac : java -jar SnackVAR.jar
 # 2. How to Use
 Using SnackVar is quite straightforward.<br>
 
-[Movie clip](SnackVar_Demo.mp4)
+[SnackVar_Demo.mp4](SnackVar_Demo.mp4)
 
 
 <img src="fig/fig_ref_selection.png">

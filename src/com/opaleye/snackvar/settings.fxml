@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="357.0" prefWidth="700.0" stylesheets="@snackvar.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.opaleye.snackvar.settings.SettingsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="406.0" prefWidth="700.0" stylesheets="@snackvar.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.opaleye.snackvar.settings.SettingsController">
 
-	<VBox layoutX="30" layoutY="1" prefHeight="294.0" prefWidth="657.0">
+	<VBox layoutX="30" layoutY="1" prefHeight="325.0" prefWidth="657.0">
 	<Label styleClass="titleClass" text="Custom Reference File" />
 	<HBox fx:id="refHBox">
 	</HBox>
@@ -30,10 +30,28 @@
 	</HBox>
 	<HBox>
 		<Label styleClass="descriptionClass" text="(recommendation&gt; germline : 0.3~0.4, somatic 0.1~0.2 )" />
-	</HBox>		
+	</HBox>
+      <Label />
+      <HBox>
+         <children>
+            <Label text="Trim without confirm :" />
+            <TextField fx:id="tf_trimWithoutConfirm" prefHeight="29.0" prefWidth="77.0" />
+            <Label text="bp" />
+         </children>
+      </HBox>
+      <HBox>
+         <children>
+            <Label styleClass="descriptionClass" text="SnackVar automatic trimming requires user confirmation" />
+         </children>
+      </HBox>
+      <HBox>
+         <children>
+            <Label styleClass="descriptionClass" text="if trimming suggestion is longer than this. (recommendation : 30~50)" />
+         </children>
+      </HBox>		
 	</VBox>
 
-         <HBox layoutX="247.0" layoutY="300.0">
+         <HBox layoutX="247.0" layoutY="345.0">
       	<Button fx:id="btn_confirm" mnemonicParsing="false" onAction="#handleConfirm" text="Confirm" />
       	<Button fx:id="btn_default" mnemonicParsing="false" onAction="#handleDefault" text="Restore Default" />
       </HBox>

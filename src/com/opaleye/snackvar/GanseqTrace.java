@@ -725,7 +725,7 @@ public class GanseqTrace implements Cloneable{
 	public int getTailTrimPosition() {
 		int scoreTrimPosition = traceLength*traceWidth;
 		int ret = traceLength*traceWidth;
-		final int windowSize = 10;
+		final int windowSize = 20;
 		int qScoreSearchLength = 2000;	// 일단 무한대
 		final int scoreCutOff = 25;
 		boolean qualityPointFound = false;

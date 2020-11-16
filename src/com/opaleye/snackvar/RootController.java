@@ -92,10 +92,13 @@ import javafx.stage.StageStyle;
  *2018.5
  */
 public class RootController implements Initializable {
-	public static final String version = "2.1.1";
+	public static final String version = "2.2.1";
 	public static final int fontSize = 13;
 	public static final int defaultGOP = 30;
 	public static final double defaultSecondPeakCutoff = 0.30;
+	public static final int defaultTrimWithoutConfirm = 35;
+
+
 
 	public static final double paneWidth = 1238; 
 	public static final int filterQualityCutoff = 25;
@@ -106,6 +109,7 @@ public class RootController implements Initializable {
 	 */
 	public double secondPeakCutoff = defaultSecondPeakCutoff;
 	public int gapOpenPenalty = defaultGOP;
+	public int trimWithoutConfirm = defaultTrimWithoutConfirm;
 
 
 	@FXML private ScrollPane  fwdPane, revPane, alignmentPane, newAlignmentPane;
@@ -250,9 +254,10 @@ public class RootController implements Initializable {
 		 */
 	}
 
-	public void setProperties(double secondPeakCutoff, int gapOpenPenalty) {
+	public void setProperties(double secondPeakCutoff, int gapOpenPenalty, int trimWithoutConfirm) {
 		this.secondPeakCutoff = secondPeakCutoff;
 		this.gapOpenPenalty = gapOpenPenalty;
+		this.trimWithoutConfirm = trimWithoutConfirm;
 	}
 
 	public void handleSettings() {
@@ -261,10 +266,13 @@ public class RootController implements Initializable {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("settings.fxml"));
 			Parent root1 = (Parent) fxmlLoader.load();
 			Stage stage = new Stage();
+			Image image = new Image(getClass().getResourceAsStream("snack_icon.png"));
+			stage.getIcons().add(image);
+
 			SettingsController controller = fxmlLoader.getController();
 			controller.setPrimaryStage(stage);
 			controller.setRootController(this);
-			controller.initValues(secondPeakCutoff, gapOpenPenalty, filterQualityCutoff);
+			controller.initValues(secondPeakCutoff, gapOpenPenalty, filterQualityCutoff, trimWithoutConfirm);
 			stage.setScene(new Scene(root1));
 			stage.setTitle("Advanced");
 			//stage.setAlwaysOnTop(true);
@@ -369,6 +377,9 @@ public class RootController implements Initializable {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("TranscriptVariant.fxml"));
 					Parent root1 = (Parent) fxmlLoader.load();
 					Stage stage = new Stage();
+					Image image = new Image(getClass().getResourceAsStream("snack_icon.png"));
+					stage.getIcons().add(image);
+
 					TVController controller = fxmlLoader.getController();
 					controller.setPrimaryStage(stage);
 					controller.setRootController(this);
@@ -447,6 +458,9 @@ public class RootController implements Initializable {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Trim.fxml"));
 			Parent root1 = (Parent) fxmlLoader.load();
 			Stage stage = new Stage();
+			Image image = new Image(getClass().getResourceAsStream("snack_icon.png"));
+			stage.getIcons().add(image);
+
 			TrimController controller = fxmlLoader.getController();
 			controller.setPrimaryStage(stage);
 			controller.setTargetTrace(tempTrace, complement);
@@ -497,7 +511,7 @@ public class RootController implements Initializable {
 			int[] bc = tempTrace.getBaseCalls();
 
 			try {
-				if(startTrimPosition < bc[GanseqTrace.headTrimPopUp]*GanseqTrace.traceWidth && endTrimPosition > bc[tempTrace.getSequenceLength() - GanseqTrace.tailTrimPopUp]*GanseqTrace.traceWidth) {
+				if(startTrimPosition < bc[trimWithoutConfirm]*GanseqTrace.traceWidth && endTrimPosition > bc[tempTrace.getSequenceLength() - trimWithoutConfirm]*GanseqTrace.traceWidth) {
 					tempTrace.makeTrimmedTrace(startTrimPosition, endTrimPosition, false);
 					confirmFwdTrace(tempTrace);
 					return;
@@ -671,7 +685,7 @@ public class RootController implements Initializable {
 			int[] bc = tempTrace.getBaseCalls();
 
 			try {
-				if(startTrimPosition < bc[GanseqTrace.headTrimPopUp]*GanseqTrace.traceWidth && endTrimPosition > bc[tempTrace.getSequenceLength() - GanseqTrace.tailTrimPopUp]*GanseqTrace.traceWidth) {
+				if(startTrimPosition < bc[trimWithoutConfirm]*GanseqTrace.traceWidth && endTrimPosition > bc[tempTrace.getSequenceLength() - trimWithoutConfirm]*GanseqTrace.traceWidth) {
 					tempTrace.makeTrimmedTrace(startTrimPosition, endTrimPosition, true);
 					confirmRevTrace(tempTrace);
 					return;
@@ -760,6 +774,8 @@ public class RootController implements Initializable {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Hetero.fxml"));
 			Parent root1 = (Parent) fxmlLoader.load();
 			Stage stage = new Stage();
+			Image image = new Image(getClass().getResourceAsStream("snack_icon.png"));
+			stage.getIcons().add(image);
 
 			HeteroController controller = fxmlLoader.getController();
 			controller.setPrimaryStage(stage);
@@ -797,6 +813,9 @@ public class RootController implements Initializable {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Hetero.fxml"));
 			Parent root1 = (Parent) fxmlLoader.load();
 			Stage stage = new Stage();
+			Image image = new Image(getClass().getResourceAsStream("snack_icon.png"));
+			stage.getIcons().add(image);
+
 			HeteroController controller = fxmlLoader.getController();
 			controller.setPrimaryStage(stage);
 			controller.setRootController(this);

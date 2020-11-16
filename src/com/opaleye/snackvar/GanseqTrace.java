@@ -43,8 +43,7 @@ public class GanseqTrace implements Cloneable{
 	public static final int FORWARD = 1;
 	public static final int REVERSE = -1;
 	public static final int originalTraceHeight = 110;
-	public static final int headTrimPopUp = 35; 
-	public static final int tailTrimPopUp = 35;
+	
 
 	protected int traceHeight = 0;
 

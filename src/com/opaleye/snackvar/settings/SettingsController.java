@@ -35,6 +35,7 @@ import javafx.stage.Stage;
 public class SettingsController implements Initializable  {
 	@FXML private TextField tf_secondPeakCutoff;
 	@FXML private TextField tf_gapOpenPenalty;
+	@FXML private TextField tf_trimWithoutConfirm;
 	@FXML private TextField tf_trainStartFileNo;
 	@FXML private TextField tf_testStartFileNo;
 	@FXML private HBox refHBox;
@@ -72,9 +73,8 @@ public class SettingsController implements Initializable  {
 		this.primaryStage = primaryStage;
 	}
 
-	public void initValues(double secondPeakCutoff, int gapOpenPenalty, int filterQualityCutoff) {
+	public void initValues(double secondPeakCutoff, int gapOpenPenalty, int filterQualityCutoff, int trimWithoutConfirm) {
 		refHBox.getChildren().add(rootController.getOpenRefButton());
-
 
 		/*
 		tf_trainStartFileNo.setText(String.format("%d",  trainCsvCounter));
@@ -82,6 +82,8 @@ public class SettingsController implements Initializable  {
 		 */
 		tf_secondPeakCutoff.setText(String.format("%.2f",  secondPeakCutoff));
 		tf_gapOpenPenalty.setText(String.format("%d",  gapOpenPenalty));
+		tf_trimWithoutConfirm.setText(String.format("%d",  trimWithoutConfirm));
+		
 		if(gapOpenPenalty >=200) 
 			heteroIndelCheckBox.setSelected(true);
 		else
@@ -106,17 +108,23 @@ public class SettingsController implements Initializable  {
 	private boolean setValues() {
 		double secondPeakCutoff;
 		int gapOpenPenalty;
+		int trimWithoutConfirm;
 
 		try {
 			secondPeakCutoff = Double.parseDouble(tf_secondPeakCutoff.getText());
 			gapOpenPenalty = Integer.parseInt(tf_gapOpenPenalty.getText());
+			trimWithoutConfirm = Integer.parseInt(tf_trimWithoutConfirm.getText());
 
 			if(secondPeakCutoff>1 || secondPeakCutoff <0)
 				throw new NumberFormatException("Cutoff value should be number between 0 and 1");
 			if(gapOpenPenalty <= 0)
 				throw new NumberFormatException("Gap open penalty should be positive integer");
 
-			rootController.setProperties(secondPeakCutoff, gapOpenPenalty);
+			if(trimWithoutConfirm <= 0)
+				throw new NumberFormatException("Trimming without confirm value should be positive integer");
+
+			
+			rootController.setProperties(secondPeakCutoff, gapOpenPenalty, trimWithoutConfirm);
 		}
 		catch (Exception ex) {
 			rootController.popUp(ex.getMessage());
@@ -141,10 +149,6 @@ public class SettingsController implements Initializable  {
 	public void handleDefault() {
 		tf_secondPeakCutoff.setText(String.format("%.2f",  RootController.defaultSecondPeakCutoff));
 		tf_gapOpenPenalty.setText(String.format("%d",  RootController.defaultGOP));
+		tf_trimWithoutConfirm.setText(String.format("%d",  RootController.defaultTrimWithoutConfirm));
 	}
-
-
-
-
-
 }

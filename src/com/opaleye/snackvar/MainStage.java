@@ -21,6 +21,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -32,6 +33,9 @@ import javafx.stage.Stage;
 public class MainStage extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		Image image = new Image(getClass().getResourceAsStream("snack_icon.png"));
+		primaryStage.getIcons().add(image);
+
 		primaryStage.setX(0);
 		primaryStage.setY(0);
 		primaryStage.setTitle("SnackVAR Ver. " + RootController.version);

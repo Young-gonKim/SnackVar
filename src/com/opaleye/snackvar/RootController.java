@@ -92,7 +92,7 @@ import javafx.stage.StageStyle;
  *2018.5
  */
 public class RootController implements Initializable {
-	public static final String version = "2.2.1";
+	public static final String version = "2.2.2";
 	public static final int fontSize = 13;
 	public static final int defaultGOP = 30;
 	public static final double defaultSecondPeakCutoff = 0.30;
@@ -523,7 +523,7 @@ public class RootController implements Initializable {
 		}
 		catch (Exception ex) {
 			ex.printStackTrace();
-			popUp("Error in loading forward trace file\n" + ex.getMessage());
+			popUp("Error in loading a trace file\nPlease check the file format and check if the basecalling has been performed.");
 			return;
 		}
 	}
@@ -697,7 +697,7 @@ public class RootController implements Initializable {
 		}
 		catch (Exception ex) {
 			ex.printStackTrace();
-			popUp("Error in loading reverse trace file\n" + ex.getMessage());
+			popUp("Error in loading a trace file\nPlease check the file format and check if the basecalling has been performed.");
 			return;
 		}
 	}

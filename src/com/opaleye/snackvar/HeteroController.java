@@ -24,23 +24,20 @@ import java.util.TreeSet;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  * Title : HeteroController
@@ -49,6 +46,7 @@ import javafx.stage.StageStyle;
  * 2018.7.
  */
 public class HeteroController implements Initializable {
+	@FXML private AnchorPane root;
 	@FXML private ScrollPane tracePane;
 	@FXML private ScrollPane resultPane;
 	@FXML private Button zoomInButton;
@@ -368,5 +366,8 @@ public class HeteroController implements Initializable {
 		tracePane.setVvalue(1.0);
 	}
 
+	public AnchorPane getRoot() {
+		return root;
+	}
 
 }

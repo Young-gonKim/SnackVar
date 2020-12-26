@@ -13,8 +13,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane prefHeight="847.0" prefWidth="1258.0" stylesheets="@snackvar.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.opaleye.snackvar.RootController">
-   <AnchorPane>
+<ScrollPane prefHeight="868.0" prefWidth="1258.0" stylesheets="@snackvar.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.opaleye.snackvar.RootController">
+   <AnchorPane fx:id="root" prefHeight="864.0" prefWidth="1252.0">
    <children>
       <ToolBar layoutX="14.0" layoutY="14.0" prefHeight="43.0" prefWidth="1226.0">
          <items>
@@ -87,6 +87,8 @@
       <Button fx:id="revZoomOutButton" layoutX="1219.0" layoutY="517.0" mnemonicParsing="false" onAction="#handleRevZoomOut" prefHeight="83.0" prefWidth="28.0" text="-" />
       <Button fx:id="fwdEditTrimBtn" layoutX="973.0" layoutY="197.0" mnemonicParsing="false" onAction="#handleFwdEditTrimming" prefHeight="26.0" prefWidth="118.0" text="Edit Trimming" />
       <Button fx:id="revEditTrimBtn" layoutX="973.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleRevEditTrimming" prefHeight="26.0" prefWidth="118.0" text="Edit Trimming" />
+         <Button layoutX="981.0" layoutY="825.0" mnemonicParsing="false" onAction="#handleTermsOfUse" prefHeight="26.0" prefWidth="112.0" text="Terms of use" />
+         <Button layoutX="1099.0" layoutY="825.0" mnemonicParsing="false" onAction="#handleGenerateReport" prefHeight="26.0" prefWidth="151.0" text="Generate Report" />
       
    </children>
    </AnchorPane>

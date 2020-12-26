@@ -65,8 +65,12 @@ public class Variant implements Comparable<Variant>{
 			if(s instanceof Indel) {
 				if(!zygosity1.equals(zygosity2))
 					return zygosity1.compareTo(zygosity2);
-				else
+				else if(gIndex1 != gIndex2)
 					return gIndex1 - gIndex2;
+				else if(!hgvs1.equals(hgvs2)) {
+					return hgvs1.compareTo(hgvs2);
+				} 
+					
 			}
 			else
 				return -1;
@@ -129,7 +133,10 @@ public class Variant implements Comparable<Variant>{
 	}
 
 	protected void makeTableViewProperties() {
-		variantProperty = new SimpleStringProperty(HGVS + ", " + AAChange);
+		String aaChange = AAChange;
+		if(aaChange == null || aaChange =="")
+			aaChange = "p.?";
+		variantProperty = new SimpleStringProperty(HGVS + ", " + aaChange);
 		zygosityProperty= new SimpleStringProperty(zygosity);
 		frequencyProperty= new SimpleStringProperty(String.format("%d",  hitCount));
 		String from;

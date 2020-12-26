@@ -53,7 +53,6 @@ public class VariantCallerFilter {
 
 	public TreeSet<Variant> getVariantList() {
 		TreeSet<Variant> ret = makeVariantList();
-
 		ret = comparisonFilter(ret);
 		ret = compressedPeakFilter(ret);
 
@@ -314,6 +313,8 @@ public class VariantCallerFilter {
 		if(heteroIndelList.size() == 2) {
 			Indel fwdIndel = (Indel)heteroIndelList.get(0);
 			Indel revIndel = (Indel)heteroIndelList.get(1);
+			
+			
 			if(fwdIndel.getHGVS().equals(revIndel.getHGVS())) {
 				heteroIndelList = new Vector<Variant>();
 				heteroIndelList.add(revIndel);
@@ -321,6 +322,7 @@ public class VariantCallerFilter {
 
 		}
 		variantList.addAll(heteroIndelList);
+		
 
 		//FWD SNV 
 		for(int i=0;i<fwdHeteroIndelStartPoint;i++) {
@@ -557,7 +559,7 @@ public class VariantCallerFilter {
 				continue;
 
 			//hetero indel 이면 filtering X
-			if(v instanceof Indel && v.getZygosity().equals("hetero")) {
+			if(v instanceof Indel && ((Indel) v).getZygosity().equals("hetero")) {
 				continue;
 			}
 

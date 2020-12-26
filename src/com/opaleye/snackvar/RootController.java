@@ -18,11 +18,14 @@
 package com.opaleye.snackvar;
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.TreeSet;
@@ -34,6 +37,8 @@ import com.opaleye.snackvar.mmalignment.MMAlignment;
 import com.opaleye.snackvar.reference.Reference;
 import com.opaleye.snackvar.reference.TVController;
 import com.opaleye.snackvar.reference.TranscriptVariant;
+import com.opaleye.snackvar.report.ReportController;
+import com.opaleye.snackvar.report.VariantReport;
 import com.opaleye.snackvar.settings.SettingsController;
 import com.opaleye.snackvar.tools.AutoCompleteTextField;
 import com.opaleye.snackvar.tools.SymbolTools;
@@ -54,6 +59,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -66,8 +72,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -92,7 +100,7 @@ import javafx.stage.StageStyle;
  *2018.5
  */
 public class RootController implements Initializable {
-	public static final String version = "2.2.2";
+	public static final String version = "2.3.0";
 	public static final int fontSize = 13;
 	public static final int defaultGOP = 30;
 	public static final double defaultSecondPeakCutoff = 0.30;
@@ -103,7 +111,7 @@ public class RootController implements Initializable {
 	public static final double paneWidth = 1238; 
 	public static final int filterQualityCutoff = 25;
 
-	private String lastVisitedDir="D:\\GoogleDrive\\SnackVar\\#실험데이타";
+	private String lastVisitedDir="D:\\GoogleDrive\\SnackVar\\data\\test scenario";
 	/**
 	 * Settings parameters
 	 */
@@ -792,6 +800,45 @@ public class RootController implements Initializable {
 			ex.printStackTrace();
 		}
 	}
+	
+	public WritableImage getFwdHeteroImage() {
+		WritableImage ret = null; 
+		try {
+			if(trimmedFwdTrace == null) {
+				return null;
+			}
+			if(fwdHeteroTrace == null) {
+				return null;
+			}
+			if(alignmentPerformed == false) {
+				return null;
+			}
+
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Hetero.fxml"));
+			Parent root1 = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
+			//Image image = new Image(getClass().getResourceAsStream("snack_icon.png"));
+			//stage.getIcons().add(image);
+
+			HeteroController controller = fxmlLoader.getController();
+			controller.setPrimaryStage(stage);
+			controller.setRootController(this);
+			controller.setHeteroTrace(fwdHeteroTrace);
+			stage.setScene(new Scene(root1)); 
+			//stage.setTitle("Hetero Indel View");
+			//stage.setAlwaysOnTop(true);
+			stage.initOwner(primaryStage);
+			stage.show();
+			controller.showResult();
+			ret = controller.getRoot().snapshot(new SnapshotParameters(), null);
+			stage.close();
+			
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return ret;
+		
+	}
 
 	/**
 	 * Activates Hetero Indel View for reverse trace 
@@ -830,6 +877,45 @@ public class RootController implements Initializable {
 			ex.printStackTrace();
 		}
 	}
+	
+	public WritableImage getRevHeteroImage() {
+		WritableImage ret = null; 
+		try {
+			if(trimmedRevTrace == null) {
+				return null;
+			}
+			if(revHeteroTrace == null) {
+				return null;
+			}
+			if(alignmentPerformed == false) {
+				return null;
+			}
+
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Hetero.fxml"));
+			Parent root1 = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
+			//Image image = new Image(getClass().getResourceAsStream("snack_icon.png"));
+			//stage.getIcons().add(image);
+
+			HeteroController controller = fxmlLoader.getController();
+			controller.setPrimaryStage(stage);
+			controller.setRootController(this);
+			controller.setHeteroTrace(revHeteroTrace);
+			stage.setScene(new Scene(root1)); 
+			//stage.setTitle("Hetero Indel View");
+			//stage.setAlwaysOnTop(true);
+			stage.initOwner(primaryStage);
+			stage.show();
+			controller.showResult();
+			ret = controller.getRoot().snapshot(new SnapshotParameters(), null);
+			stage.close();
+			
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return ret;
+		
+	}
 
 	/**
 	 * Shows the message with a popup
@@ -862,7 +948,39 @@ public class RootController implements Initializable {
 		}
 
 	}
+	
+	/**
+	 * Shows the Terms of use popup
+	 * @param message : message to be showen
+	 */
+	public void termsPopUp (String message) {
+		Stage popUpStage = new Stage(StageStyle.DECORATED);
+		popUpStage.initOwner(primaryStage);
+		popUpStage.setTitle("Terms of Use");
+		Parent parent;
+		try {
+			parent = FXMLLoader.load(getClass().getResource("Terms.fxml"));
+			TextArea termsArea = (TextArea)parent.lookup("#termsArea");
 
+
+			termsArea.setText(message);
+			//termsArea.setWrapText(true);
+			Button okButton = (Button) parent.lookup("#okButton");
+			okButton.setOnAction(event->popUpStage.close());
+			Scene scene = new Scene(parent);
+
+			popUpStage.setScene(scene);
+			popUpStage.setResizable(false);
+			//dialog.show();
+
+			popUpStage.show();
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+
+	}
+	
 
 
 	private boolean doAlignment() {
@@ -1758,6 +1876,101 @@ public class RootController implements Initializable {
 			revPane.setVvalue(1.0);
 		}
 	}
+	
+	public void handleTermsOfUse() {
+		String text = "";
+		try (BufferedReader reader = new BufferedReader(new FileReader("Terms_of_use.txt"))) {
+			String temp; 
+			while((temp=reader.readLine())!=null)
+				text+=temp+'\n';
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+			popUp("Missing Terms_of_use.txt file");
+		}
+		termsPopUp(text);
+	}
+	
+	public void handleGenerateReport() {
+		if(variantTable.getItems().size() <= 0) {
+			popUp("No variant to report!");
+			return;
+		}
+		
+		ArrayList<VariantReport> variantReportList = new ArrayList<VariantReport>();
+		int oritinalIndex = variantTable.getSelectionModel().getSelectedIndex();
+		
+		for(int i=0;i<variantTable.getItems().size();i++) {
+			Variant variant = variantTable.getItems().get(i);
+			
+			
+			variantTable.getSelectionModel().select(i);
+			
+			String description = variant.getVariantProperty() + ", " + variant.getZygosityProperty();
+			ArrayList<String> titleList = new ArrayList<String>();
+			ArrayList<WritableImage> imageList = new ArrayList<WritableImage>();
+			
+			//titleList, imageList 만들기
+			titleList.add("Alignment");
+			imageList.add(alignmentPane.snapshot(new SnapshotParameters(), null));
+			
+			titleList.add("Forward Trace");
+			imageList.add(fwdPane.snapshot(new SnapshotParameters(), null));
+
+			titleList.add("Reverse Trace");
+			imageList.add(revPane.snapshot(new SnapshotParameters(), null));
+
+			//hetero indel은 type 1, 나머지는 type 0
+			int type = 0;
+			if(variant instanceof Indel && ((Indel) variant).getZygosity().equals("hetero")) {
+				type = 1;
+				if(variant.getHitCount()==2) {
+					titleList.add("Hetero Indel View (Forward)");
+					imageList.add(getFwdHeteroImage());
+					titleList.add("Hetero Indel View (Reverse)");
+					imageList.add(getRevHeteroImage());
+				}
+				else if(variant.getDirection() == GanseqTrace.FORWARD) {
+					titleList.add("Hetero Indel View (Forward)");
+					imageList.add(getFwdHeteroImage());
+				}
+				else if (variant.getDirection() == GanseqTrace.REVERSE) {
+					titleList.add("Hetero Indel View (Reverse)");
+					imageList.add(getRevHeteroImage());
+				}
+			}
+			
+
+			VariantReport vr = new VariantReport(description, titleList, imageList, type);
+			variantReportList.add(vr);
+			
+		}
+		variantTable.getSelectionModel().select(oritinalIndex);
+		
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("report.fxml"));
+			Parent root1 = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
+			Image image = new Image(getClass().getResourceAsStream("snack_icon.png"));
+			stage.getIcons().add(image);
+			ReportController controller = fxmlLoader.getController();
+			controller.setPrimaryStage(stage);
+			controller.setRootController(this);
+			controller.setVariantReportList(variantReportList);
+			stage.setScene(new Scene(root1));
+			stage.setTitle("SnackVar Report");
+			//stage.setAlwaysOnTop(true);
+			stage.initOwner(primaryStage);
+
+			stage.show();
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+			return;
+		}
+		
+	}
+	
 
 	public void setRunMode(int runMode) {
 		this.runMode = runMode;

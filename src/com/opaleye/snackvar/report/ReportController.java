@@ -150,7 +150,7 @@ public class ReportController implements Initializable  {
 				HBox descHbox = new HBox();
 				descHbox.getChildren().add(new Label("Description : "));
 				TextField descTextField = new TextField(variantReport.getVariantDescription());
-				descTextField.setPrefWidth(400);
+				descTextField.setPrefWidth(600);
 				descHbox.getChildren().add(descTextField);
 				currentPage.getChildren().add(descHbox);
 				//currentPage.getChildren().add(descHbox);

@@ -100,7 +100,7 @@ import javafx.stage.StageStyle;
  *2018.5
  */
 public class RootController implements Initializable {
-	public static final String version = "2.3.0";
+	public static final String version = "2.3.1";
 	public static final int fontSize = 13;
 	public static final int defaultGOP = 30;
 	public static final double defaultSecondPeakCutoff = 0.30;
@@ -1898,7 +1898,7 @@ public class RootController implements Initializable {
 		}
 		
 		ArrayList<VariantReport> variantReportList = new ArrayList<VariantReport>();
-		int oritinalIndex = variantTable.getSelectionModel().getSelectedIndex();
+		int originalIndex = variantTable.getSelectionModel().getSelectedIndex();
 		
 		for(int i=0;i<variantTable.getItems().size();i++) {
 			Variant variant = variantTable.getItems().get(i);
@@ -1914,10 +1914,18 @@ public class RootController implements Initializable {
 			titleList.add("Alignment");
 			imageList.add(alignmentPane.snapshot(new SnapshotParameters(), null));
 			
-			titleList.add("Forward Trace");
+			String tempTitle = "Forward Trace";
+			if(fwdTraceFileLabel != null && fwdTraceFileLabel.getText() != null) 
+				tempTitle += (" : " + fwdTraceFileLabel.getText());
+			titleList.add(tempTitle);
+
 			imageList.add(fwdPane.snapshot(new SnapshotParameters(), null));
 
-			titleList.add("Reverse Trace");
+			tempTitle = "Reverse Trace";
+			if(revTraceFileLabel != null && revTraceFileLabel.getText() != null) 
+				tempTitle += (" : " + revTraceFileLabel.getText());
+			titleList.add(tempTitle);
+
 			imageList.add(revPane.snapshot(new SnapshotParameters(), null));
 
 			//hetero indel은 type 1, 나머지는 type 0
@@ -1925,17 +1933,34 @@ public class RootController implements Initializable {
 			if(variant instanceof Indel && ((Indel) variant).getZygosity().equals("hetero")) {
 				type = 1;
 				if(variant.getHitCount()==2) {
-					titleList.add("Hetero Indel View (Forward)");
+					tempTitle = "Hetero Indel View (Forward)";
+					if(fwdTraceFileLabel != null && fwdTraceFileLabel.getText() != null) 
+						tempTitle += (" : " + fwdTraceFileLabel.getText());
+					titleList.add(tempTitle);
+					
 					imageList.add(getFwdHeteroImage());
-					titleList.add("Hetero Indel View (Reverse)");
+
+					tempTitle = "Hetero Indel View (Reverse)";
+					if(revTraceFileLabel != null && revTraceFileLabel.getText() != null) 
+						tempTitle += (" : " + revTraceFileLabel.getText());
+					titleList.add(tempTitle);
+					
 					imageList.add(getRevHeteroImage());
 				}
 				else if(variant.getDirection() == GanseqTrace.FORWARD) {
-					titleList.add("Hetero Indel View (Forward)");
+					tempTitle = "Hetero Indel View (Forward)";
+					if(fwdTraceFileLabel != null && fwdTraceFileLabel.getText() != null) 
+						tempTitle += (" : " + fwdTraceFileLabel.getText());
+					titleList.add(tempTitle);
+					
 					imageList.add(getFwdHeteroImage());
 				}
 				else if (variant.getDirection() == GanseqTrace.REVERSE) {
-					titleList.add("Hetero Indel View (Reverse)");
+					tempTitle = "Hetero Indel View (Reverse)";
+					if(revTraceFileLabel != null && revTraceFileLabel.getText() != null) 
+						tempTitle += (" : " + revTraceFileLabel.getText());
+					titleList.add(tempTitle);
+					
 					imageList.add(getRevHeteroImage());
 				}
 			}
@@ -1945,7 +1970,7 @@ public class RootController implements Initializable {
 			variantReportList.add(vr);
 			
 		}
-		variantTable.getSelectionModel().select(oritinalIndex);
+		variantTable.getSelectionModel().select(originalIndex);
 		
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("report.fxml"));

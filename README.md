@@ -60,8 +60,8 @@ Kim YG, Kim MJ, Lee JS, Lee JA, Song JY, Cho SI, Park SS, Seong MW. SnackVar: An
 Copyright 2021. Young-gon Kim. All rights reserved.<br>
 
 # 7. Updates (Since the publication in the Journal of Molecular Diagnostics in 2021) 
-Ver. 2.3.1 (January 7, 2021)<br>
-Report printing function added <br>
-Ver. 2.4.0 (March 7, 2021)<br>
+**Ver. 2.3.1 (January 7, 2021)**<br>
+Report printing function added <br><br>
+**Ver. 2.4.0 (March 7, 2021)**<br>
 Jump to the location function added <br>
 Advanced parameter for delins variant calling added <br>

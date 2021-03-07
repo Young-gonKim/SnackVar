@@ -55,7 +55,7 @@
       <ScrollPane fx:id="fwdPane" layoutX="14.0" layoutY="224.0" prefHeight="170.0" prefWidth="1200.0" />
       <ScrollPane fx:id="revPane" layoutX="14.0" layoutY="432.0" prefHeight="170.0" prefWidth="1200.0" />
       <Label layoutX="14.0" layoutY="70.0" prefHeight="19.0" prefWidth="124.0" text="Reference File : " />
-      <Label fx:id="refFileLabel" layoutX="132.0" layoutY="70.0" prefHeight="6.0" prefWidth="788.0" />
+      <Label fx:id="refFileLabel" layoutX="132.0" layoutY="70.0" prefHeight="19.0" prefWidth="344.0" />
       <Label layoutX="14.0" layoutY="202.0" text="Forward Trace File : " />
       <Label fx:id="fwdTraceFileLabel" layoutX="159.0" layoutY="202.0" prefHeight="16.0" prefWidth="664.0" />
       <Label layoutX="16.0" layoutY="405.0" text="Reverse Trace File : " />
@@ -89,6 +89,9 @@
       <Button fx:id="revEditTrimBtn" layoutX="973.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleRevEditTrimming" prefHeight="26.0" prefWidth="118.0" text="Edit Trimming" />
          <Button layoutX="981.0" layoutY="825.0" mnemonicParsing="false" onAction="#handleTermsOfUse" prefHeight="26.0" prefWidth="112.0" text="Terms of use" />
          <Button layoutX="1099.0" layoutY="825.0" mnemonicParsing="false" onAction="#handleGenerateReport" prefHeight="26.0" prefWidth="151.0" text="Generate Report" />
+         <TextField fx:id="goPositionText" layoutX="677.0" layoutY="65.0" prefHeight="26.0" prefWidth="66.0" />
+         <Button layoutX="752.0" layoutY="65.0" mnemonicParsing="false" onAction="#handleGo" text="Go" />
+         <Label layoutX="495.0" layoutY="70.0" text="Jump to the position (c.) : " />
       
    </children>
    </AnchorPane>

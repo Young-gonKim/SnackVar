@@ -1,4 +1,4 @@
-SnackVar Ver 2.3.1
+SnackVar Ver 2.4.0
 ======================
 SnackVar is a free software for Sanger sequencing analysis in clinical environment.<br>
 It supports automatic detection of variants including SNVs and indel variants (homozygous and heterozygous).<br>
@@ -6,7 +6,7 @@ Detected variants are provided in the form of HGVS (Human Genome Variation Socie
 
 # 1. How to Run
 1. You need to have [Java](https://www.java.com) installed.(Version 8 or higher)
-2. Download SnackVar_V2.3.1.zip and unzip. (Download : Release tab above)
+2. Download SnackVar_V2.4.0.zip and unzip. (Download : Release tab above)
 3. Run <br>
 Windows : Run.bat or SnackVAR.jar (If not run by double click, right click-> open with -> JAVA)<br>
 Linux, Mac : java -jar SnackVAR.jar
@@ -45,8 +45,23 @@ This adjustment could result in increased number of false positive variant calls
 2. Gap opening penalty (Advanced button)<br>
 Manual adjustment of gap opening penalty is not necessary.<br>
 When a higher value of gap opening penalty is required, SnackVar automatically applies a higher gap opening penalty and notifies the user with a popup that the heterozygous indel optimization mode is activated. <br>
-
-
+3. Number of consecutive matches for finishing the search for the end of delins variant<br>
+In normal cases, use of default value 5 is recommended. (range 1-10)<br>
+In High quality traces, using higher values will give correct delins variant calling. <br>
+In Poor Quality traces, increasing this value will result in the tendency of calling delins variants with longer insertion sequences. Decreasing this value will result in the tendency of calling delins variants with shorter insertion sequence or ins/del variant instead of delins variant. <br> 
 
 # 4. Utilized Libraries
 BioJAVA Legacy  (https://github.com/biojava/biojava-legacy)<br>
+
+# 5. Citation
+Kim YG, Kim MJ, Lee JS, Lee JA, Song JY, Cho SI, Park SS, Seong MW. SnackVar: An Open-Source Software for Sanger Sequencing Analysis Optimized for Clinical Use. J. Mol. Diagn. 2021;23:140-8. <br>
+
+# 6. Copyright
+Copyright 2021. Young-gon Kim. All rights reserved.<br>
+
+# 7. Updates (Since the publication in the Journal of Molecular Diagnostics in 2021) 
+Ver. 2.3.1<br>
+- Report printing function added<br>
+Ver. 2.4.0<br>
+- Jump to the location function added <br>
+- Advanced parameter for delins variant calling added <br>

@@ -100,24 +100,28 @@ import javafx.stage.StageStyle;
  *2018.5
  */
 public class RootController implements Initializable {
-	public static final String version = "2.3.1";
+	public static final String version = "2.4.0";
 	public static final int fontSize = 13;
-	public static final int defaultGOP = 30;
-	public static final double defaultSecondPeakCutoff = 0.30;
 	public static final int defaultTrimWithoutConfirm = 35;
-
+	public static final double defaultSecondPeakCutoff = 0.30;
+	
+	// 아래 두개는 case specific parameters --> case 새로 open 될때마다 reset. (handleOpenRef, handleOpenSavedRef, confirmFwdTrace, confirmRevTrace)
+	//2021. 03. 07 : 원래는 handle run 할때마다 reset 했는데, 그럴경우 같은 sample로 option만 바꾸면서 re-run 할 경우 자꾸 reset 되어서. 위와같이 수정함.
+	public static final int defaultGOP = 30;
+	public static final int defaultDelinsCutoff = 5;
 
 
 	public static final double paneWidth = 1238; 
 	public static final int filterQualityCutoff = 25;
 
-	private String lastVisitedDir="D:\\GoogleDrive\\SnackVar\\data\\test scenario";
+	private String lastVisitedDir="D:\\GoogleDrive\\SnackVar\\#실험데이타\\2차";
 	/**
 	 * Settings parameters
 	 */
 	public double secondPeakCutoff = defaultSecondPeakCutoff;
 	public int gapOpenPenalty = defaultGOP;
 	public int trimWithoutConfirm = defaultTrimWithoutConfirm;
+	public int delinsCutoff = defaultDelinsCutoff;
 
 
 	@FXML private ScrollPane  fwdPane, revPane, alignmentPane, newAlignmentPane;
@@ -133,6 +137,8 @@ public class RootController implements Initializable {
 	//@FXML private ImageView fwdRuler, revRuler;
 	@FXML private TableView<Variant> variantTable;
 
+	@FXML private TextField goPositionText;
+	
 	ChangeListener<Number> cl = null;
 
 	//variables for jpro file opening
@@ -262,12 +268,41 @@ public class RootController implements Initializable {
 		 */
 	}
 
-	public void setProperties(double secondPeakCutoff, int gapOpenPenalty, int trimWithoutConfirm) {
+	public void setProperties(double secondPeakCutoff, int gapOpenPenalty, int trimWithoutConfirm, int delinsCutoff) {
 		this.secondPeakCutoff = secondPeakCutoff;
 		this.gapOpenPenalty = gapOpenPenalty;
 		this.trimWithoutConfirm = trimWithoutConfirm;
+		this.delinsCutoff = delinsCutoff;
 	}
+	
+	/**
+	 * Jump to the input c. location
+	 */
+	public void handleGo() {
+		if(!alignmentPerformed) {
+			popUp("This function can be used only after the alinment is performed");
+			return;
+		}
+		String goPosString = goPositionText.getText();
+		if(goPosString == null || goPosString.length()==0) {
+			popUp("Input the location to go (ex. 101 or c.101");
+			return;
+		}
 
+		for(int i=0;i<alignedPoints.size();i++)  {
+			AlignedPoint ap = alignedPoints.get(i);
+			if(!(goPosString.length() >=2 && goPosString.substring(0,2).equals("c.")))
+				goPosString = "c." + goPosString;
+			if(ap.getStringCIndex().equals(goPosString)) {
+				focus(i);
+				return;
+			}
+		}
+		popUp("There is no point wiht the designated coordinate in current alignment. Please check you have given right form of cDNA coordinate. ex. 101 or c.101");
+	}
+	
+
+	
 	public void handleSettings() {
 		//System.out.println(fwdFileHandler.fileUploader.getUploadedFile().getAbsolutePath());
 		try {
@@ -280,7 +315,7 @@ public class RootController implements Initializable {
 			SettingsController controller = fxmlLoader.getController();
 			controller.setPrimaryStage(stage);
 			controller.setRootController(this);
-			controller.initValues(secondPeakCutoff, gapOpenPenalty, filterQualityCutoff, trimWithoutConfirm);
+			controller.initValues(secondPeakCutoff, gapOpenPenalty, filterQualityCutoff, trimWithoutConfirm, delinsCutoff);
 			stage.setScene(new Scene(root1));
 			stage.setTitle("Advanced");
 			//stage.setAlwaysOnTop(true);
@@ -311,6 +346,7 @@ public class RootController implements Initializable {
 		fwdHeteroBtn.setVisible(false);
 		revHeteroBtn.setVisible(false);
 		variantTable.getItems().clear();
+	
 	}
 
 
@@ -325,6 +361,10 @@ public class RootController implements Initializable {
 			popUp(ex.getMessage());
 			return;
 		}
+		
+		gapOpenPenalty = defaultGOP;
+		delinsCutoff = defaultDelinsCutoff;
+
 		resetParameters();
 		refLoaded = true;
 		refFileLabel.setText(reference.getRefName());
@@ -407,6 +447,9 @@ public class RootController implements Initializable {
 			popUp(ex.getMessage());
 			return;
 		}
+		gapOpenPenalty = defaultGOP;
+		delinsCutoff = defaultDelinsCutoff;
+
 		resetParameters();
 		refLoaded = true;
 		refFileLabel.setText(refFileName);
@@ -561,6 +604,9 @@ public class RootController implements Initializable {
 		finally {
 
 		}
+		gapOpenPenalty = defaultGOP;
+		delinsCutoff = defaultDelinsCutoff;
+
 		resetParameters();
 	}
 
@@ -741,6 +787,10 @@ public class RootController implements Initializable {
 			popUp("Error in loading reverse trace file\n" + ex.getMessage());
 			ex.printStackTrace();
 		}
+		
+		gapOpenPenalty = defaultGOP;
+		delinsCutoff = defaultDelinsCutoff;
+
 		resetParameters();
 	}
 
@@ -1270,7 +1320,7 @@ public class RootController implements Initializable {
 					if(variant instanceof Indel && ((Indel) variant).getZygosity().equals("homo"))
 						focus2((Indel)variant);
 					else { 
-						focus(variant.getAlignmentIndex()-1, variant.getFwdTraceIndex(), variant.getRevTraceIndex(), variant.getFwdTraceChar(), variant.getRevTraceChar());
+						focus(variant.getAlignmentIndex()-1);
 					}
 
 				}
@@ -1283,7 +1333,7 @@ public class RootController implements Initializable {
 				if(event.getCode()==KeyCode.DELETE) handleRemoveVariant();
 			});
 		}
-		gapOpenPenalty = defaultGOP;
+		
 	}
 
 	/**
@@ -1576,14 +1626,27 @@ public class RootController implements Initializable {
 	/**
 	 * Focuses on the designated points (Alignment pane, forward trace pane, reverse trace pane)
 	 * @param selectedAlignmentPos : position to be focused on the alignment pane
-	 * @param selectedFwdPos : position to be focused on the forward trace pane
-	 * @param selectedRevPos : position to be focused on the reverse trace pane
-	 * @param fwdChar : If it is gap, not focused
-	 * @param revChar : If it is gap, not focused
 	 */
-	public void focus(int selectedAlignmentPos, int selectedFwdPos, int selectedRevPos, char fwdChar, char revChar) {
+	public void focus(int selectedAlignmentPos) {
 		//selectedAlignmentPos : 이것만 0부터 시작하는 index
 		//selectedFwdPos, selectedRevPos : 1부터 시작하는 index
+		
+		AlignedPoint ap = alignedPoints.get(selectedAlignmentPos);
+		char fwdChar = Formatter.gapChar;
+		char revChar = Formatter.gapChar;
+		int selectedFwdPos = 0;
+		int selectedRevPos = 0;
+		
+		if(fwdLoaded) {
+			selectedFwdPos = ap.getFwdTraceIndex();
+			fwdChar = ap.getFwdChar();
+		}
+		if(revLoaded) {
+			selectedRevPos = ap.getRevTraceIndex();
+			revChar = ap.getRevChar();
+		}
+
+		
 		boolean fwdGap = (fwdChar == Formatter.gapChar); 
 		boolean revGap = (revChar == Formatter.gapChar);
 
@@ -1791,7 +1854,7 @@ public class RootController implements Initializable {
 
 		@Override
 		public void handle(MouseEvent t) {
-			focus(selectedAlignmentPos, selectedFwdPos, selectedRevPos, fwdChar, revChar);
+			focus(selectedAlignmentPos);
 		}
 	}
 
@@ -1819,7 +1882,7 @@ public class RootController implements Initializable {
 			if(variant instanceof Indel && ((Indel) variant).getZygosity().equals("homo"))
 				focus2((Indel)variant);
 			else 
-				focus(variant.getAlignmentIndex()-1, variant.getFwdTraceIndex(), variant.getRevTraceIndex(), variant.getFwdTraceChar(), variant.getRevTraceChar());
+				focus(variant.getAlignmentIndex()-1);
 		}
 	}
 

@@ -33,6 +33,7 @@ public class HeteroTrace extends com.opaleye.snackvar.GanseqTrace {
 	private final double indelCutoff = 0.6;
 	private String result = "not run yet";
 
+	
 	//1: insertion, -1 : deletion
 	private int insOrDel = -1;
 	private int indelSize = 0;
@@ -445,7 +446,32 @@ public class HeteroTrace extends com.opaleye.snackvar.GanseqTrace {
 
 					//delins detection (기본 : del)
 					for(refSeqIndex=indelStartIndex-1; refSeqIndex+indelSize < refSeq.length && subSeqIndex < subtractedSeq.length && indelEndIndex <= s_refSeq.length(); ) {
-						if(refSeq[refSeqIndex+indelSize] == subtractedSeq[subSeqIndex]) break;
+
+						//2021.03.04 insertion seq이 긴 delins 검출위해 수정. delinsCutoff 만큼 일치해야 break, 기존에는 1개만 일치해도 break
+						boolean pass = true;
+						int matchCount = 0;
+
+						try	{
+							int refSeqIndex2 = refSeqIndex;
+							int subSeqIndex2 = subSeqIndex;
+							for(int i=0;i<rootController.delinsCutoff;i++) { 
+								if(refSeq[refSeqIndex2+indelSize] == subtractedSeq[subSeqIndex2])
+									matchCount++;
+								refSeqIndex2++;
+								subSeqIndex2++;
+							}
+						}
+						catch(Exception e) {
+							pass = false;
+						}
+						if(!pass) {	// 오른쪽으로 delinsCutoff 만큼 칸수가 안남음 --> 예전방법 적용.
+							if(refSeq[refSeqIndex+indelSize] == subtractedSeq[subSeqIndex]) break;	// 2021.03.04 예전에는 하나만 달라도 quit
+						}
+						else {
+							if(matchCount == rootController.delinsCutoff)
+								break;
+						}
+						
 						indelSeq += subtractedSeq[subSeqIndex];
 						refSeqIndex++;	
 						subSeqIndex++;  
@@ -467,7 +493,37 @@ public class HeteroTrace extends com.opaleye.snackvar.GanseqTrace {
 					//delins detection (기본 : del)
 					subSeqIndex = s_subtractedSeq.length()-1;
 					for(refSeqIndex=doublePeakStartIndex-1-indelSize; refSeqIndex>=0 && subSeqIndex>=0 && indelStartIndex>=1; ) {
-						if(refSeq[refSeqIndex] == subtractedSeq[subSeqIndex]) break;
+						
+						
+						//2021.03.04 insertion seq이 긴 delins 검출위해 수정. delinsCutoff 만큼 일치해야 break, 기존에는 1개만 일치해도 break
+						boolean pass = true;
+						int matchCount = 0;
+
+						try	{
+							int refSeqIndex2 = refSeqIndex;
+							int subSeqIndex2 = subSeqIndex;
+							for(int i=0;i<rootController.delinsCutoff;i++) { 
+								if(refSeq[refSeqIndex2] == subtractedSeq[subSeqIndex2])
+									matchCount++;
+								refSeqIndex2--;
+								subSeqIndex2--;
+							}
+						}
+						catch(Exception e) {
+							pass = false;
+						}
+						if(!pass) {	// 오른쪽으로 delinsCutoff 만큼 칸수가 안남음 --> 예전방법 적용.
+							if(refSeq[refSeqIndex] == subtractedSeq[subSeqIndex]) break;	// 2021.03.04 예전에는 하나만 달라도 quit
+						}
+						else {
+							if(matchCount == rootController.delinsCutoff)
+								break;
+						}
+						
+						
+						//if(refSeq[refSeqIndex] == subtractedSeq[subSeqIndex]) break;
+						
+						
 						indelSeq = subtractedSeq[subSeqIndex] + indelSeq;
 						refSeqIndex--;	
 						subSeqIndex--;  
@@ -511,9 +567,34 @@ public class HeteroTrace extends com.opaleye.snackvar.GanseqTrace {
 						//delins detection
 						subSeqIndex = indelSize;
 
-						for(refSeqIndex=doublePeakStartIndex-1; 
-								refSeqIndex<refSeq.length && subSeqIndex<subtractedSeq.length && indelEndIndex<=refSeq.length;) {
-							if(refSeq[refSeqIndex] == subtractedSeq[subSeqIndex]) break;
+						for(refSeqIndex=doublePeakStartIndex-1; refSeqIndex<refSeq.length && subSeqIndex<subtractedSeq.length && indelEndIndex<=refSeq.length;) {
+							
+							
+							boolean pass = true;
+							int matchCount = 0;
+							try	{
+								int refSeqIndex2 = refSeqIndex;
+								int subSeqIndex2 = subSeqIndex;
+								for(int i=0;i<rootController.delinsCutoff;i++) { 
+									if(refSeq[refSeqIndex2] == subtractedSeq[subSeqIndex2])
+										matchCount++;
+									refSeqIndex2++;
+									subSeqIndex2++;
+								}
+							}
+							catch(Exception e) {
+								pass = false;
+							}
+							if(!pass) {	// 오른쪽으로 delinsCutoff 만큼 칸수가 안남음 --> 예전방법 적용.
+								if(refSeq[refSeqIndex] == subtractedSeq[subSeqIndex]) break;	// 2021.03.04 예전에는 하나만 달라도 quit
+							}
+							else {
+								if(matchCount == rootController.delinsCutoff)
+									break;
+							}
+
+							//if(refSeq[refSeqIndex] == subtractedSeq[subSeqIndex]) break;
+							
 							indelSeq += subtractedSeq[subSeqIndex];
 							refSeqIndex++;	
 							subSeqIndex++;  
@@ -559,7 +640,34 @@ public class HeteroTrace extends com.opaleye.snackvar.GanseqTrace {
 						subSeqIndex = s_subtractedSeq.length()-1-indelSize;
 						for(refSeqIndex=doublePeakStartIndex-1; refSeqIndex>=0 && subSeqIndex>=0 && indelStartIndex >=1; ) {
 
-							if(refSeq[refSeqIndex] == subtractedSeq[subSeqIndex]) break;
+							boolean pass = true;
+							int matchCount = 0;
+
+							try	{
+								int refSeqIndex2 = refSeqIndex;
+								int subSeqIndex2 = subSeqIndex;
+								for(int i=0;i<rootController.delinsCutoff;i++) { 
+									if(refSeq[refSeqIndex2] == subtractedSeq[subSeqIndex2])
+										matchCount++;
+									refSeqIndex2--;
+									subSeqIndex2--;
+								}
+							}
+							catch(Exception e) {
+								pass = false;
+							}
+							if(!pass) {	// 오른쪽으로 delinsCutoff 만큼 칸수가 안남음 --> 예전방법 적용.
+								if(refSeq[refSeqIndex] == subtractedSeq[subSeqIndex]) break;	// 2021.03.04 예전에는 하나만 달라도 quit
+							}
+							else {
+								if(matchCount == rootController.delinsCutoff)
+									break;
+							}
+							
+							//if(refSeq[refSeqIndex] == subtractedSeq[subSeqIndex]) break;
+
+							
+							
 							indelSeq = subtractedSeq[subSeqIndex] + indelSeq;
 							refSeqIndex--;	
 							subSeqIndex--;  

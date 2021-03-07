@@ -5,3 +5,5 @@ Information requires interpretation by an expert in the field (e.g. physician or
 Information provided by SnackVar is intended only to assist users in reaching their own conclusions 
 and that users are solely responsible for the decisions based on use of the information.
 The developer shall not be responsible for any interpretation, disclosure, or use of the information.
+
+Copyright 2021. Young-gon Kim. All rights reserved.

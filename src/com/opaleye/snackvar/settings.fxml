@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="406.0" prefWidth="700.0" stylesheets="@snackvar.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.opaleye.snackvar.settings.SettingsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="607.0" prefWidth="826.0" stylesheets="@snackvar.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.opaleye.snackvar.settings.SettingsController">
 
-	<VBox layoutX="30" layoutY="1" prefHeight="325.0" prefWidth="657.0">
+	<VBox layoutX="14.0" layoutY="14.0" prefHeight="534.0" prefWidth="731.0">
 	<Label styleClass="titleClass" text="Custom Reference File" />
 	<HBox fx:id="refHBox">
 	</HBox>
@@ -32,7 +32,7 @@
 		<Label styleClass="descriptionClass" text="(recommendation&gt; germline : 0.3~0.4, somatic 0.1~0.2 )" />
 	</HBox>
       <Label />
-      <HBox>
+      <HBox prefWidth="743.0">
          <children>
             <Label text="Trim without confirm :" />
             <TextField fx:id="tf_trimWithoutConfirm" prefHeight="29.0" prefWidth="77.0" />
@@ -46,12 +46,48 @@
       </HBox>
       <HBox>
          <children>
-            <Label styleClass="descriptionClass" text="if trimming suggestion is longer than this. (recommendation : 30~50)" />
+            <Label prefHeight="32.0" prefWidth="470.0" styleClass="descriptionClass" text="if trimming suggestion is longer than this. (recommendation : 30~50)" />
+         </children>
+      </HBox>
+      <HBox prefHeight="49.0" prefWidth="657.0">
+         <children>
+            <Label prefHeight="16.0" prefWidth="565.0" text="Number of consecutive matches for finising the search for the end of delins variant : " />
+            <TextField fx:id="tf_delinsCutoff" prefHeight="26.0" prefWidth="49.0" />
+         </children>
+      </HBox>
+      <HBox>
+         <children>
+            <Label styleClass="descriptionClass" text="Use of default value 5 is recommended. (range : 1~10)" />
+         </children>
+      </HBox>
+      <HBox>
+         <children>
+            <Label styleClass="descriptionClass" text="In High quality traces, using higher values will give correct delins variant calling" />
+         </children>
+      </HBox>
+      <HBox>
+         <children>
+            <Label styleClass="descriptionClass" text="In Poor Quality traces, " />
+         </children>
+      </HBox>
+      <HBox>
+         <children>
+            <Label prefHeight="16.0" prefWidth="738.0" styleClass="descriptionClass" text="- Increasing this value will result in the tendency of calling delins variants with longer insertion sequence" />
+         </children>
+      </HBox>
+      <HBox prefHeight="22.0" prefWidth="713.0">
+         <children>
+            <Label prefHeight="16.0" prefWidth="713.0" styleClass="descriptionClass" text="- Decreasing this value will result in the tendency of calling delins variants with shorter insertion sequence" />
+         </children>
+      </HBox>
+      <HBox prefHeight="22.0" prefWidth="713.0">
+         <children>
+            <Label prefHeight="16.0" prefWidth="713.0" styleClass="descriptionClass" text="  or ins/del variant instead of delins variant" />
          </children>
       </HBox>		
 	</VBox>
 
-         <HBox layoutX="247.0" layoutY="345.0">
+               <HBox layoutX="247.0" layoutY="552.0">
       	<Button fx:id="btn_confirm" mnemonicParsing="false" onAction="#handleConfirm" text="Confirm" />
       	<Button fx:id="btn_default" mnemonicParsing="false" onAction="#handleDefault" text="Restore Default" />
       </HBox>

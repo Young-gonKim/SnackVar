@@ -48,13 +48,15 @@ import javafx.stage.Stage;
 public class ReportController implements Initializable  {
 	@FXML private ScrollPane scrollPane;
 	@FXML private VBox vBox, outerVBox;
-
+	@FXML private Label refSeqLabel;
+	
 	private RootController rootController = null;
 	private Stage primaryStage;
 
 	private final int imageWidth = 1080;
 
 	private ArrayList<VBox> pages;
+	private String refFileName = null; 
 
 
 	@Override
@@ -189,6 +191,12 @@ public class ReportController implements Initializable  {
 
 
 	}
+	public void setRefFileName(String refFileName) {
+		this.refFileName = refFileName;
+		refSeqLabel.setText(refFileName);
+	}
+	
+	
 
 
 

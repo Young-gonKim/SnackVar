@@ -115,7 +115,8 @@ public class SettingsController implements Initializable  {
 		int delinsCutoff;
 
 		try {
-			secondPeakCutoff = Double.parseDouble(tf_secondPeakCutoff.getText());
+			secondPeakCutoff = Double.parseDouble((tf_secondPeakCutoff.getText()).replace(',',  '.'));
+			
 			gapOpenPenalty = Integer.parseInt(tf_gapOpenPenalty.getText());
 			trimWithoutConfirm = Integer.parseInt(tf_trimWithoutConfirm.getText());
 			trimWithoutConfirm = Integer.parseInt(tf_trimWithoutConfirm.getText());

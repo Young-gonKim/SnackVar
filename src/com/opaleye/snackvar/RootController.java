@@ -100,7 +100,7 @@ import javafx.stage.StageStyle;
  *2018.5
  */
 public class RootController implements Initializable {
-	public static final String version = "2.4.0";
+	public static final String version = "2.4.1";
 	public static final int fontSize = 13;
 	public static final int defaultTrimWithoutConfirm = 35;
 	public static final double defaultSecondPeakCutoff = 0.30;
@@ -115,6 +115,8 @@ public class RootController implements Initializable {
 	public static final int filterQualityCutoff = 25;
 
 	private String lastVisitedDir="D:\\GoogleDrive\\SnackVar\\#실험데이타\\2차";
+	
+
 	/**
 	 * Settings parameters
 	 */
@@ -122,6 +124,7 @@ public class RootController implements Initializable {
 	public int gapOpenPenalty = defaultGOP;
 	public int trimWithoutConfirm = defaultTrimWithoutConfirm;
 	public int delinsCutoff = defaultDelinsCutoff;
+	
 
 
 	@FXML private ScrollPane  fwdPane, revPane, alignmentPane, newAlignmentPane;
@@ -132,7 +135,9 @@ public class RootController implements Initializable {
 	@FXML private Button fwdZoomInButton, fwdZoomOutButton, revZoomInButton, revZoomOutButton;
 	@FXML private TextField tf_firstNumber;
 	@FXML private Label offsetLabel;
+	@FXML private Label cutoffLabel;
 
+	
 	@FXML private Button btn_settings;
 	//@FXML private ImageView fwdRuler, revRuler;
 	@FXML private TableView<Variant> variantTable;
@@ -244,7 +249,7 @@ public class RootController implements Initializable {
 		revZoomInButton.setTooltip(zoomInTooltip);
 		revZoomOutButton.setTooltip(zoomOutTooltip);
 		offsetLabel.setTooltip(offsetTooltip);
-
+		cutoffLabel.setText(new Double(this.secondPeakCutoff).toString());
 
 
 		atf = new AutoCompleteTextField(this);
@@ -270,6 +275,7 @@ public class RootController implements Initializable {
 
 	public void setProperties(double secondPeakCutoff, int gapOpenPenalty, int trimWithoutConfirm, int delinsCutoff) {
 		this.secondPeakCutoff = secondPeakCutoff;
+		cutoffLabel.setText(new Double(this.secondPeakCutoff).toString());
 		this.gapOpenPenalty = gapOpenPenalty;
 		this.trimWithoutConfirm = trimWithoutConfirm;
 		this.delinsCutoff = delinsCutoff;
@@ -2044,6 +2050,7 @@ public class RootController implements Initializable {
 			ReportController controller = fxmlLoader.getController();
 			controller.setPrimaryStage(stage);
 			controller.setRootController(this);
+			controller.setRefFileName(refFileLabel.getText());
 			controller.setVariantReportList(variantReportList);
 			stage.setScene(new Scene(root1));
 			stage.setTitle("SnackVar Report");

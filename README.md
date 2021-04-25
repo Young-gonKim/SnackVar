@@ -1,4 +1,4 @@
-SnackVar Ver 2.4.0
+SnackVar Ver 2.4.1
 ======================
 SnackVar is a free software for Sanger sequencing analysis in clinical environment.<br>
 It supports automatic detection of variants including SNVs and indel variants (homozygous and heterozygous).<br>
@@ -6,7 +6,7 @@ Detected variants are provided in the form of HGVS (Human Genome Variation Socie
 
 # 1. How to Run
 1. You need to have [Java](https://www.java.com) installed.(Version 8 or higher)
-2. Download SnackVar_V2.4.0.zip and unzip. (Download : Release tab above)
+2. Download SnackVar_V2.4.1.zip and unzip. (Download : Release tab above)
 3. Run <br>
 Windows : Run.bat or SnackVAR.jar (If not run by double click, right click-> open with -> JAVA)<br>
 Linux, Mac : java -jar SnackVAR.jar
@@ -65,3 +65,8 @@ Report printing function added <br><br>
 **Ver. 2.4.0 (March 7, 2021)**<br>
 Jump to the location function added <br>
 Advanced parameter for delins variant calling added <br>
+**Ver. 2.4.1 (April 25, 2021)**<br>
+Cutoff for double peak detection shown at the bottom of main page <br>
+Reference sequence included in the report <br>
+Comma accepted as decimal separator at the input of cutoff for double peak detection <br>
+

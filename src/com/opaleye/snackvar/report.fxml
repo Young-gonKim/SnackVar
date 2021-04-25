@@ -14,14 +14,14 @@
 		<ScrollPane fx:id="scrollPane" layoutX="21.0" layoutY="64.0" prefHeight="786.0" prefWidth="1137.0">
 			<content>
 				<VBox fx:id="outerVBox">
-					<VBox fx:id="vBox" prefWidth="1087.0">
+					<VBox fx:id="vBox" prefHeight="137.0" prefWidth="1087.0">
 						<children>
 							<Label prefHeight="19.0" prefWidth="242.0" text="SnackVar Report">
 								<font>
 									<Font size="24.0" />
 								</font>
 							</Label>
-							<HBox prefHeight="100.0" prefWidth="200.0">
+							<HBox prefHeight="60.0" prefWidth="1087.0">
 								<children>
 									<Label text="ID : " />
 									<TextField prefHeight="29.0" prefWidth="276.0" />
@@ -29,6 +29,17 @@
 									<TextField prefHeight="29.0" prefWidth="632.0" />
 								</children>
 							</HBox>
+                     <HBox prefHeight="37.0" prefWidth="1087.0">
+                        <children>
+                           <Label text="Reference sequence : " />
+                           <Label fx:id="refSeqLabel" prefHeight="16.0" prefWidth="894.0" />
+                        </children>
+                     </HBox>
+                     <HBox prefHeight="32.0" prefWidth="1087.0">
+                        <children>
+                           <Label />
+                        </children>
+                     </HBox>
 						</children>
 					</VBox>
 				</VBox>

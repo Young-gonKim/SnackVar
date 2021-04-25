@@ -92,6 +92,8 @@
          <TextField fx:id="goPositionText" layoutX="677.0" layoutY="65.0" prefHeight="26.0" prefWidth="66.0" />
          <Button layoutX="752.0" layoutY="65.0" mnemonicParsing="false" onAction="#handleGo" text="Go" />
          <Label layoutX="495.0" layoutY="70.0" text="Jump to the position (c.) : " />
+         <Label layoutX="16.0" layoutY="830.0" prefHeight="16.0" prefWidth="223.0" text="Cutoff for double peak detection:" />
+         <Label fx:id="cutoffLabel" layoutX="239.0" layoutY="829.0" prefHeight="16.0" prefWidth="65.0" />
       
    </children>
    </AnchorPane>

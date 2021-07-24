@@ -100,7 +100,7 @@ import javafx.stage.StageStyle;
  *2018.5
  */
 public class RootController implements Initializable {
-	public static final String version = "2.4.1";
+	public static final String version = "2.4.2";
 	public static final int fontSize = 13;
 	public static final int defaultTrimWithoutConfirm = 35;
 	public static final double defaultSecondPeakCutoff = 0.30;
@@ -1286,11 +1286,18 @@ public class RootController implements Initializable {
 		TreeSet<Variant> variantList = vcf.getVariantList();
 
 		if(vcf.misAlignment(variantList)) {
-			gapOpenPenalty = 200;
+			if(gapOpenPenalty == defaultGOP)
+				gapOpenPenalty = 200;
+			else if(gapOpenPenalty < 1000) {
+				gapOpenPenalty += 200;
+			}
 			handleRun();
-			popUp("Hetero indel optimization mode is activated.\nDeactivation is available in 'Advanced'");
 			return;
 		}
+		
+		if(gapOpenPenalty > 30) 
+			popUp("Hetero indel optimization mode is activated.\nHigher gap opening penalty than default value is being used.\nDeactivation is available in 'Advanced'");
+
 
 		if(variantList.size()==0) popUp("No variant detected!");
 		else {

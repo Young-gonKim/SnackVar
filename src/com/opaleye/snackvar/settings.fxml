@@ -21,7 +21,7 @@
 		<Label prefHeight="16.0" prefWidth="398.0" styleClass="descriptionClass" text="(default : 30, hetero indel optimization : 200 or higher)" />
 	</HBox>
 	<HBox>
-         <CheckBox fx:id="heteroIndelCheckBox" mnemonicParsing="false" prefHeight="18.0" prefWidth="492.0" text="Hetero Indel Mode (sets gap opening penalty 200)" />
+         <CheckBox fx:id="heteroIndelCheckBox" mnemonicParsing="false" prefHeight="18.0" prefWidth="492.0" text="Hetero Indel Mode (sets gap opening penalty 200 or higher)" />
 	</HBox>
       <Label />
 	<HBox>

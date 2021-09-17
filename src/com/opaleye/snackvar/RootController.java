@@ -100,7 +100,7 @@ import javafx.stage.StageStyle;
  *2018.5
  */
 public class RootController implements Initializable {
-	public static final String version = "2.4.2";
+	public static final String version = "2.4.3";
 	public static final int fontSize = 13;
 	public static final int defaultTrimWithoutConfirm = 35;
 	public static final double defaultSecondPeakCutoff = 0.30;
@@ -114,7 +114,7 @@ public class RootController implements Initializable {
 	public static final double paneWidth = 1238; 
 	public static final int filterQualityCutoff = 25;
 
-	private String lastVisitedDir="D:\\GoogleDrive\\SnackVar\\#실험데이타\\2차";
+	private String lastVisitedDir="D:\\GoogleDrive\\SnackVar\\data\\test scenario";
 	
 
 	/**

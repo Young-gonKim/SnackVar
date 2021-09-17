@@ -277,6 +277,9 @@ public class HeteroTrace extends com.opaleye.snackvar.GanseqTrace {
 					}
 				}
 				
+				refSeq[i] = realRefChar;
+				//20210917 github request 반영
+				
 
 				//Hetero indel detection 대상 구간에서만 subtracted Seq 구하기
 				if((direction ==1 && (i+1) >= maxRLIndex) || (direction==-1) && ((i+1) <= maxLRIndex)) {
